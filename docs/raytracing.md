@@ -21,13 +21,13 @@ La direccion se puede definir como el vector con X e Y. (y = 1,  x = 0).
 
 El vector de la camara es perpendicular a la direccion del vector del jugador.
 
-![Vector de la camara](https://hackmd.io/@nszl/H1LXByIE2?stext=5723%3A89%3A0%3A1760438433%3Ag5sdro)
+![Vector de la camara](https://raw.githubusercontent.com/neosizzle/cub3d/main/pictures/cam_vect.png)
 
 Ahora podemos conectar los extremos de ambos vectores y tenemos un cono con el campo de vision.
 
 Si el vector es mucho mas largo que el plano de la camara, el FOV será mas pequeño que 90º y tendras vision estrecha.
 
-![Campo de vision alejado](https://hackmd.io/@nszl/H1LXByIE2?stext=6246%3A93%3A0%3A1760438622%3AqYVFkE)
+![Campo de vision alejado](https://raw.githubusercontent.com/neosizzle/cub3d/main/pictures/cam_vect_3.png)
 
 
 ## Algoritmo DDA (Digital Differential Analysis)
@@ -36,4 +36,4 @@ Determina la altura de la pared a dibujar.
 
 Calcula que cuadrados de nuestro mapa atraviesa el rayo.
 
-![Camino del rayo hasta el muro](https://hackmd.io/@nszl/H1LXByIE2?stext=7130%3A81%3A0%3A1760438903%3AAy7xrd)
+![Camino del rayo hasta el muro](https://raw.githubusercontent.com/neosizzle/cub3d/main/pictures/DDA2.png)
