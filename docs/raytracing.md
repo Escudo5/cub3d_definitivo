@@ -14,7 +14,7 @@ Si choca con una pared, calcula la distancia desde el jugador hasta el muro para
 
 Antes de lanzar rayos, tenemos que determinar donde castear los rayos. Tenemos que saber en que direccion mira el personaje, lo hacemos con un vector.
 
-![Imagen fov jugador](https://hackmd.io/@nszl/H1LXByIE2?stext=5178%3A103%3A0%3A1760438169%3Ap8vdpI)
+![Imagen fov jugador](https://raw.githubusercontent.com/neosizzle/cub3d/main/pictures/player_dir_vect.png)
 
 
 La direccion se puede definir como el vector con X e Y. (y = 1,  x = 0).
