@@ -190,4 +190,48 @@ typedef  struct  s_line
 } t_line;
 ```
 
+Hay que crear una variable que guarde la poscion del eje X qye golpea la pared.
+Llamamos a este valor wall_x.
+
+```c
+double	wall_x;
+
+if (ray->side == WEST || ray->side == EAST)
+	wall_x = player->pos.y + ray->prep_wall_dist * ray->ray_dir_y;
+else
+	wall_x = player->pos.x + ray->prep_wall_dist * ray->ray_dir_x;
+wall_x -= floor(wall_x); //make it start from 0
+```
+
+ahora podemos poner x a la coordenada actual a dibujar.
+
+` line->x = ray->curr_x `
+
+
+Podemos empezar a pintar texturas/colores en la pantalla.
+
+```c
+//paint texture if the ray hits a wall
+if (root->game->map[ray->map_y][ray->map_x] == '1')
+	//assumes that this function paints textures
+	paint_texture_line(root, ray, line, wall_x);
+	
+//reset line to start at the top pixel
+line->y0 = 0;
+
+// reset line to end at the textures beginning pixel
+line->y1 = ray->draw_start;
+
+//assumes that this function paints a solid color
+paint_line(root, line, root->crgb); //we paint the ceiling
+
+//reset line to start at the bottom pixel
+line->y0 = WIN_HEIGHT;
+
+//reset line to end at the textures end pixel
+line->y1 = ray->draw_end;
+
+//assumes that this function paints a solid color
+paint_line(root, line, root->frgb);//we paint the floor
+```
 
