@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escudo5 <escudo5@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 16:50:25 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/15 17:06:13 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/17 16:37:04 by escudo5          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdbool.h>
 # include <stdint.h>
 # include <stdlib.h>
+#include <math.h>
+#include <fcntl.h>
 
 /* Constantes de ventana por defecto (ajusta luego con el parser .cub) */
 # define WIN_W 800
@@ -46,9 +48,17 @@ typedef struct s_cfg
 {
 	int			w;
 	int			h;
-	uint32_t	ceil_color;
-	uint32_t	floor_color;
+	t_color	ceil_color;
+	t_color	floor_color;
 }				t_cfg;
+
+typedef struct s_color
+{
+	long t;
+	long r;
+	long g;
+	long b;
+} t_color;
 
 /* Vectores 2D en double para precisión en raycasting y movimiento */
 typedef struct s_vec2
@@ -83,6 +93,37 @@ typedef struct s_keys
 	int			right;
 }				t_keys;
 
+
+typedef struct s_ray
+{
+	double camera_x;
+	t_vec2 ray_dir;  //direccion del rayo en 2D
+	int map_X;
+	int map_Y;  //celda del mapa actual donde se busca la paredd
+	double side_dist_x;
+	double side_dist_y; //distancia dle jugador al borde en x/y que alcanza el rayo
+	double delta_dist_x;
+	double delta_dist_y; //cuanto hay que avanzar a lo largo del rayo para cruzar una celda en x/y
+	int step_x;
+	int step_y; //direccion del paso en el mapa
+	int side;  // 0 si es interseccion con N/S o 1 si es horizontal E/W
+	double perp_dist; //calculo de altura de muro.
+	int hit;
+}t_ray;
+	
+
+typedef struct s_slice
+{
+	int line_height; //altura de pixeles que ocupara la pared en la columna
+	int draw_start;
+	int draw_end; //coordenadas Y donde empieza/acaba la farnja en pantalal
+	double wall_x;  // punto de impacto en la pared en coodenada continua
+	int tex_x;
+	double tex_step;
+	double tex_pos; //posicion inicial en la textura para el primer pixel de draw_start.
+}t_slice;
+
+
 /* Contexto global: pasarás un puntero a esto a todas las funciones */
 typedef struct s_ctx
 {
@@ -92,6 +133,10 @@ typedef struct s_ctx
 	t_player	player;
 	t_map		map;
 	t_keys		keys;
+	t_ray ray;
+	t_slice slice;
+	t_img textures;
+	t_vec2 vec2;
 }				t_ctx;
 
 /* Prototipos mínimos para los primeros sprints (ajusta según módulos) */
@@ -110,5 +155,33 @@ void			gfx_vline(t_ctx *c, int x, int y0, int y1, uint32_t color);
 int				hook_close(t_ctx *c);
 int				hook_key_press(int keycode, t_ctx *c);
 int				hook_key_release(int keycode, t_ctx *c);
+
+
+
+
+//raycasting 
+
+void	calc_ray(t_ctx *rc);
+void	dda(t_ctx *rc);
+void	wall_dist(t_ctx *rc);
+void	raycast(t_ctx *rc, t_mlx *mlx);
+
+//render
+void put_pixel(t_ctx *rc, int x , int y, uint32_t color);
+unsigned int  draw_vline(t_ctx *rc, int x, int y);
+void draw_background(t_ctx *rc, int c);
+void draw_env(t_ctx *rc, int start_y, int end_y);
+void draw_mix(t_ctx *rc);
+
+
+
+//texture
+
+int set_color(t_color color);
+t_color get_color(int color);
+
+
+
+
 
 #endif
