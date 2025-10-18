@@ -6,7 +6,7 @@
 /*   By: escudo5 <escudo5@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 16:50:25 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/17 16:37:04 by escudo5          ###   ########.fr       */
+/*   Updated: 2025/10/18 14:03:21 by escudo5          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,10 @@ void draw_mix(t_ctx *rc);
 
 int set_color(t_color color);
 t_color get_color(int color);
+t_ctx *get_wall_text(t_ctx *rc);
+void draw_tex(t_ctx *rc, int x);
+
+
 
 
 

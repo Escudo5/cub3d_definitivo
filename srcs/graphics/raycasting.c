@@ -6,7 +6,7 @@
 /*   By: escudo5 <escudo5@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 13:32:17 by escudo5           #+#    #+#             */
-/*   Updated: 2025/10/17 16:30:38 by escudo5          ###   ########.fr       */
+/*   Updated: 2025/10/18 14:07:58 by escudo5          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,24 @@ void	wall_dist(t_ctx *rc)
 //obtener line_height, draw start y end.
 
 
+void calc_tex_pos(t_ctx *rc)
+{
+	t_ctx *image;
 
+	image = get_wall_tex(rc);
+	if (rc->ray.side == 0)
+		rc->slice.wall_x = rc->player.pos.y + rc->ray.perp_dist * rc->ray.ray_dir.y;
+	else
+		rc->slice.wall_x = rc->player.pos.x + rc->ray.perp_dist * rc->ray.ray_dir.x;
+	rc->slice.wall_x -= floor(rc->slice.wall_x);
+	rc->slice.tex_x = (int)(rc->slice.wall_x * (double)image->cfg.w);
+	if (rc->ray.side == 0 && rc->ray.ray_dir.x > 0)
+		rc->slice.tex_x = (double)image->cfg.w - rc->slice.tex_x - 1;
+	if (rc->ray.side == 1 && rc->ray.ray_dir.y < 0)
+		rc->slice.tex_x = (double)image->cfg.w - rc->slice.tex_x - 1;
+	rc->slice.tex_step = 1.0 * image->cfg.h / rc->slice.line_height;
+	rc->slice.tex_pos = (rc->slice.draw_start - rc->cfg.h / 2 + rc->slice.line_height / 2) * rc->slice.tex_step;
+}
 
 
 
@@ -117,9 +134,12 @@ void	raycast(t_ctx *rc, t_mlx *mlx)
 		calc_ray(rc);
 		dda(rc);
 		wall_dist(rc);
+		calc_tex_pos(rc);
+		draw_tex(rc, x);
 
         //falta calcular texctura de pared y dibujarla
 	}
+	mlx_put_image_to_window
 }
 
 // init ray y calular direccion todo en la misma funcion
