@@ -3,27 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 16:50:25 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/21 13:43:36 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/21 19:21:47 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+// System libraries
 # include <stdbool.h>
 # include <stdint.h>
 # include <stdlib.h>
-#include <math.h>
-#include <fcntl.h>
-#include "../minilibx-linux/mlx.h"
+# include <math.h>
+# include <fcntl.h>
+
+// User Libraries
+# include "../minilibx-linux/mlx.h"
+# include "../libft/libft.h"
 
 /* Constantes de ventana por defecto (ajusta luego con el parser .cub) */
 # define WIN_W 800
 # define WIN_H 600
 # define TITLE "cub3d"
+
+/*Macros for error*/
+enum	macro_errors
+{
+	SUCCESS = 0,
+	MALLOC_ERROR = -1,
+	INPUT_ERROR = -2
+};
 
 /* Imagen de frame: buffer donde pintas antes de mostrar en la ventana */
 typedef struct s_img
@@ -77,10 +89,11 @@ typedef struct s_player
 	t_vec2		plane;
 }				t_player;
 
+// Struct for storing the map
 typedef struct s_map
 {
-	int			w;
-	int			h;
+	int			width;
+	int			height;
 	char		**grid;
 }				t_map;
 
