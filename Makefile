@@ -18,7 +18,7 @@ GRAPHICS_SRCS = raycasting.c \
 	render.c \
 	texture.c
 GRAPHICS_PREFIX = $(addprefix $(GRAPHICS_DIR), $(GRAPHICS_SRCS))
-GRAPHICS_OBJS = $(GRAPHICS_PREFIX: .c = .o)
+GRAPHICS_OBJS = $(GRAPHICS_PREFIX:.c=.o)
 
 # Flags, includes and compiler
 CFLAGS = -Wall -Wextra -Werror
