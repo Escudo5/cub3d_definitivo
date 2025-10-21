@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 16:50:25 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/21 13:43:36 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/21 17:58:28 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <math.h>
 #include <fcntl.h>
 #include "../minilibx-linux/mlx.h"
+#include "../libft/libft.h"
 
 /* Constantes de ventana por defecto (ajusta luego con el parser .cub) */
 # define WIN_W 800
@@ -144,32 +145,15 @@ typedef struct s_ctx
 	t_vec2 vec2;
 }				t_ctx;
 
-/* Prototipos mínimos para los primeros sprints (ajusta según módulos) */
-int				app_init(t_ctx *c);
-int				app_loop(t_ctx *c);
-void			app_destroy(t_ctx *c, int code);
-
-/* GFX */
-int				gfx_open(t_ctx *c);
-int				gfx_create_frame(t_ctx *c);
-void			gfx_clear(t_ctx *c, uint32_t color);
-void			gfx_present(t_ctx *c);
-void			gfx_vline(t_ctx *c, int x, int y0, int y1, uint32_t color);
-
-/* Hooks */
-int				hook_close(t_ctx *c);
-int				hook_key_press(int keycode, t_ctx *c);
-int				hook_key_release(int keycode, t_ctx *c);
-
-
-
 
 //raycasting 
 
 void	calc_ray(t_ctx *rc);
 void	dda(t_ctx *rc);
 void	wall_dist(t_ctx *rc);
+void calc_tex_pos(t_ctx *rc);
 void	raycast(t_ctx *rc);
+
 
 //render
 void put_pixel(t_ctx *rc, int x , int y, uint32_t color);
@@ -184,8 +168,8 @@ void draw_mix(t_ctx *rc);
 
 int set_color(t_color color);
 t_color get_color(int color);
-t_img *get_wall_tex(t_ctx *rc);
 t_img *search_img(char *tex, t_ctx *rc);
+t_img *get_wall_tex(t_ctx *rc);
 void draw_tex(t_ctx *rc, int x);
 
 

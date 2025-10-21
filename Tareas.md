@@ -6,3 +6,8 @@ Linea 105 diferenciar entre altura de imagen y la de resolucion de pantlla es po
 
 
 Posible fallo en draw_tex, posria ser necesario incluir una estrcutura t_img **SOLUCIONADO**
+
+
+
+
+1. Hacer init_player()
