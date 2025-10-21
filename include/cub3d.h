@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escudo5 <escudo5@student.42.fr>            +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 16:50:25 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/18 14:03:21 by escudo5          ###   ########.fr       */
+/*   Updated: 2025/10/20 19:54:06 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,6 @@ typedef struct s_mlx
 }				t_mlx;
 
 /* Configuración general (resolución, colores básicos) */
-typedef struct s_cfg
-{
-	int			w;
-	int			h;
-	t_color	ceil_color;
-	t_color	floor_color;
-}				t_cfg;
-
 typedef struct s_color
 {
 	long t;
@@ -59,6 +51,15 @@ typedef struct s_color
 	long g;
 	long b;
 } t_color;
+
+
+typedef struct s_cfg
+{
+	int			w;
+	int			h;
+	t_color	ceil_color;
+	t_color	floor_color;
+}				t_cfg;
 
 /* Vectores 2D en double para precisión en raycasting y movimiento */
 typedef struct s_vec2
