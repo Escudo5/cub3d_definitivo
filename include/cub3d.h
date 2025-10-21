@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 16:50:25 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/20 19:54:06 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/21 13:43:36 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 #include <math.h>
 #include <fcntl.h>
+#include "../minilibx-linux/mlx.h"
 
 /* Constantes de ventana por defecto (ajusta luego con el parser .cub) */
 # define WIN_W 800
@@ -130,13 +131,16 @@ typedef struct s_ctx
 {
 	t_mlx		mlx;
 	t_img		frame;
+	t_img tex_north;
+	t_img tex_south;
+	t_img tex_east;
+	t_img tex_west;
 	t_cfg		cfg;
 	t_player	player;
 	t_map		map;
 	t_keys		keys;
 	t_ray ray;
 	t_slice slice;
-	t_img textures;
 	t_vec2 vec2;
 }				t_ctx;
 
@@ -165,11 +169,11 @@ int				hook_key_release(int keycode, t_ctx *c);
 void	calc_ray(t_ctx *rc);
 void	dda(t_ctx *rc);
 void	wall_dist(t_ctx *rc);
-void	raycast(t_ctx *rc, t_mlx *mlx);
+void	raycast(t_ctx *rc);
 
 //render
 void put_pixel(t_ctx *rc, int x , int y, uint32_t color);
-unsigned int  draw_vline(t_ctx *rc, int x, int y);
+unsigned int  get_pixel(t_ctx *rc, int x, int y);
 void draw_background(t_ctx *rc, int c);
 void draw_env(t_ctx *rc, int start_y, int end_y);
 void draw_mix(t_ctx *rc);
@@ -180,10 +184,12 @@ void draw_mix(t_ctx *rc);
 
 int set_color(t_color color);
 t_color get_color(int color);
-t_ctx *get_wall_text(t_ctx *rc);
+t_img *get_wall_tex(t_ctx *rc);
+t_img *search_img(char *tex, t_ctx *rc);
 void draw_tex(t_ctx *rc, int x);
 
 
+//img_utils
 
 
 
