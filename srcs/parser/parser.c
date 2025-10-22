@@ -6,14 +6,14 @@
 /*   By: alejandro <alejandro@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 19:48:01 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/22 18:59:52 by alejandro        ###   ########.fr       */
+/*   Updated: 2025/10/22 21:50:35 by alejandro        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../../include/parser.h"
 
-int	parser_extension(char *filename, int *map_fd)
+int	parser_extension(char *filename, int *mapfd)
 {
 	char	*find;
 
@@ -28,8 +28,8 @@ int	parser_extension(char *filename, int *map_fd)
 		ft_putstr_fd("Invalid '.cub' extension", STDERR_FILENO);
 		return (INPUT_ERROR);
 	}
-	*map_fd = open(filename, O_RDONLY);
-	if (*map_fd < 0)
+	*mapfd = open(filename, O_RDONLY);
+	if (*mapfd < 0)
 	{
 		perror("Can't open map");
 		return (INPUT_ERROR);
@@ -37,31 +37,38 @@ int	parser_extension(char *filename, int *map_fd)
 	return (SUCCESS);
 }
 
-int	store_imgs(t_ctx *cube, int *map_fd, char *filename)
+int	store_imgs(t_ctx *cube, int *mapfd)
 {
-	if (get_NO(cube, map_fd) != SUCCESS)
+	if (get_no(cube, mapfd) != SUCCESS)
 		return (INPUT_ERROR);
-	if (get_SO(cube, map_fd) != SUCCESS)
+	if (get_so(cube, mapfd) != SUCCESS)
 		return (INPUT_ERROR);
-	if (get_WE(cube, map_fd) != SUCCESS)
+	if (get_we(cube, mapfd) != SUCCESS)
 		return (INPUT_ERROR);
-	if (get_EA(cube, map_fd) != SUCCESS)
+	if (get_ea(cube, mapfd) != SUCCESS)
 		return (INPUT_ERROR);
-	gnl_cleanup(*map_fd);
-	ft_putstr_fd("All ok\n",2);
-	close(*map_fd);
+	ft_putstr_fd("Textures path ok\n", 2);
+	return (SUCCESS);
+}
+
+int	store_cf(t_ctx *cube, int *mapfd)
+{
+	if (get_f(cube, mapfd) != SUCCESS)
+		return (INPUT_ERROR);
+	if (get_C(cube, mapfd) != SUCCESS)
+		return (INPUT_ERROR);
 	return (SUCCESS);
 }
 
 // int	parser_clean_map(char *filename, t_map *map)
 // {
-// 	int		map_fd;
+// 	int		mapfd;
 // 	char	*temp;
 
-// 	map_fd = open(filename, O_RDONLY);
-// 	temp = ft_strtrim(get_next_line(map_fd));
+// 	mapfd = open(filename, O_RDONLY);
+// 	temp = ft_strtrim(get_next_line(mapfd));
 // 	if (temp == NULL){
-// 		close(map_fd);
+// 		close(mapfd);
 // 		return (INPUT_ERROR);
 // 	}
 // 	map->height = 1;
@@ -71,11 +78,13 @@ int	store_imgs(t_ctx *cube, int *map_fd, char *filename)
 
 int	parser(char *argv, t_ctx *cube)
 {
-	int		map_fd;
+	int		mapfd;
 
-	if (parser_extension(argv, &map_fd) != SUCCESS)
+	if (parser_extension(argv, &mapfd) != SUCCESS)
 		return (INPUT_ERROR);
-	if (store_imgs(cube, &map_fd, argv) != SUCCESS)
+	if (store_imgs(cube, &mapfd) != SUCCESS)
+		return (INPUT_ERROR);
+	if (store_cf(cube, &mapfd) != SUCCESS)
 		return (INPUT_ERROR);
 	// map = malloc(sizeof(t_map));
 	// if (!map)
@@ -86,14 +95,16 @@ int	parser(char *argv, t_ctx *cube)
 	// 	return (INPUT_ERROR);
 	// }
 	// cube->map = map;
-	close(map_fd);
+	gnl_cleanup(mapfd);
+	ft_putstr_fd("Textures path ok\n", 2);
+	close(mapfd);
 	return (SUCCESS);
 }
 
 int	main(int argc, char **argv)
 {
 	t_ctx	*cube;
-	
+
 	if (argc != 2 || !argv[1])
 	{
 		ft_printf("Incorrect number of arguments\n");
@@ -104,6 +115,10 @@ int	main(int argc, char **argv)
 		return (MALLOC_ERROR);
 	if (parser(argv[1], cube) != SUCCESS)
 	{
+		free(cube->tex_north.addr);
+		free(cube->tex_south.addr);
+		free(cube->tex_west.addr);
+		free(cube->tex_east.addr);
 		free(cube);
 		return (INPUT_ERROR);
 	}
