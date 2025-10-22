@@ -63,7 +63,7 @@ all: $(NAME)
 
 $(NAME): $(CUBE_OBJS) $(GRAPHICS_OBJS) $(LIBFT_PREFX) $(MOVEMENT_OBJS) $(INIT_OBJS)
 	@echo "\n\n$(BLUE)Linking object files and libraries...$(RESET)\n\n"
-	$(CC) $(CFLAGS) -o $(NAME) $(CUBE_OBJS) $(GRAPHICS_OBJS) $(MLX_FLAGS) $(LIBFT_PREFX) $(MOVEMENT_OBJS) $(INIT_OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(CUBE_OBJS) $(GRAPHICS_OBJS) $(MOVEMENT_OBJS) $(INIT_OBJS) $(LIBFT_PREFX) $(MLX_FLAGS)
 	@echo "\n\n$(GREEN)Build complete!$(RESET)\n\n"
 
 $(LIBFT_PREFX):
