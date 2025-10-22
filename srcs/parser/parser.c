@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alejandro <alejandro@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 19:48:01 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/21 20:59:46 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/22 18:59:52 by alejandro        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../../include/parser.h"
 
-int	parser_extension(char *filename)
+int	parser_extension(char *filename, int *map_fd)
 {
 	char	*find;
-	int		map_fd;
 
 	find = ft_strnstr(filename, ".cub", ft_strlen(filename));
 	if (!find)
@@ -29,40 +28,27 @@ int	parser_extension(char *filename)
 		ft_putstr_fd("Invalid '.cub' extension", STDERR_FILENO);
 		return (INPUT_ERROR);
 	}
-	map_fd = open(filename, O_RDONLY);
-	if (map_fd < 0)
+	*map_fd = open(filename, O_RDONLY);
+	if (*map_fd < 0)
 	{
 		perror("Can't open map");
 		return (INPUT_ERROR);
 	}
-	close (map_fd);
 	return (SUCCESS);
 }
 
 int	store_imgs(t_ctx *cube, int *map_fd, char *filename)
 {
-	char	*temp;
-
-	*map_fd = open(filename, O_RDONLY);
-	temp = get_next_line(*map_fd);
-	while (temp != NULL)
-	{
-		free(temp);
-		temp = get_next_line(*map_fd);
-	}
-	// if (temp == NULL)
-	// {
-	// 	close(*map_fd);
-	// 	return (INPUT_ERROR);
-	// }
-	// if (!ft_strncmp(temp, "NO", 2))
-	// {
-	// 	ft_putstr_fd("Invalid 'NO' img\n", STDERR_FILENO);
-	// 	free(temp);
-	// 	close(*map_fd);
-	// 	return (INPUT_ERROR);
-	// }
-	free(temp);
+	if (get_NO(cube, map_fd) != SUCCESS)
+		return (INPUT_ERROR);
+	if (get_SO(cube, map_fd) != SUCCESS)
+		return (INPUT_ERROR);
+	if (get_WE(cube, map_fd) != SUCCESS)
+		return (INPUT_ERROR);
+	if (get_EA(cube, map_fd) != SUCCESS)
+		return (INPUT_ERROR);
+	gnl_cleanup(*map_fd);
+	ft_putstr_fd("All ok\n",2);
 	close(*map_fd);
 	return (SUCCESS);
 }
@@ -83,13 +69,13 @@ int	store_imgs(t_ctx *cube, int *map_fd, char *filename)
 // 	while (temp)
 // }
 
-int	parser(char **argv, t_ctx *cube)
+int	parser(char *argv, t_ctx *cube)
 {
 	int		map_fd;
 
-	if (parser_extension(argv[1]) != SUCCESS)
+	if (parser_extension(argv, &map_fd) != SUCCESS)
 		return (INPUT_ERROR);
-	if (store_imgs(cube, &map_fd, argv[1]) != SUCCESS)
+	if (store_imgs(cube, &map_fd, argv) != SUCCESS)
 		return (INPUT_ERROR);
 	// map = malloc(sizeof(t_map));
 	// if (!map)
@@ -100,6 +86,7 @@ int	parser(char **argv, t_ctx *cube)
 	// 	return (INPUT_ERROR);
 	// }
 	// cube->map = map;
+	close(map_fd);
 	return (SUCCESS);
 }
 
@@ -107,20 +94,24 @@ int	main(int argc, char **argv)
 {
 	t_ctx	*cube;
 	
-	if (argc != 2 || !*argv)
+	if (argc != 2 || !argv[1])
 	{
 		ft_printf("Incorrect number of arguments\n");
 		return (SUCCESS);
 	}
-	cube = malloc(sizeof(t_ctx));
+	cube = ft_calloc(1, sizeof(t_ctx));
 	if (!cube)
 		return (MALLOC_ERROR);
-	if (parser(argv, cube) != SUCCESS)
+	if (parser(argv[1], cube) != SUCCESS)
 	{
 		free(cube);
 		return (INPUT_ERROR);
 	}
-	free(cube->map);
+	// free(cube->map);
+	free(cube->tex_north.addr);
+	free(cube->tex_south.addr);
+	free(cube->tex_west.addr);
+	free(cube->tex_east.addr);
 	free(cube);
 	return (SUCCESS);
 }

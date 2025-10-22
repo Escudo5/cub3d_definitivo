@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alejandro <alejandro@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 16:50:25 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/21 20:36:33 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:50:40 by alejandro        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ typedef struct s_player
 // Struct for storing the map
 typedef struct s_map
 {
-	int			width;
-	int			height;
+	int			w;
+	int			h;
 	char		**grid;
 }				t_map;
 
@@ -150,7 +150,7 @@ typedef struct s_ctx
 	t_img		tex_west;
 	t_cfg		cfg;
 	t_player	player;
-	t_map		*map;
+	t_map		map;
 	t_keys		keys;
 	t_ray		ray;
 	t_slice		slice;
