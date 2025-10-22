@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:42:16 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/22 12:51:14 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:09:27 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int game_init(t_ctx *ctx)
 	mlx_hook(ctx->mlx.win, 2, 1L << 0, hook_key_press, ctx);
 	mlx_hook(ctx->mlx.win, 3, 1L << 1, hook_key_release, ctx);
 	mlx_hook(ctx->mlx.win, 17, 0, hook_close, ctx);
+	return(1);
 }
 
 int gfx_open(t_ctx *ctx)

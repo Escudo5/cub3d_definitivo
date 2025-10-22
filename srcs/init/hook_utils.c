@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:44:30 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/22 12:56:36 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/22 15:39:09 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	hook_close(t_ctx *c)
 {
-	app_destroy(c, 0);
+	game_destroy(c, 0);
 	return (0);
 }
 
 int	hook_key_press(int keycode, t_ctx *c)
 {
 	if (keycode == 65307)
-	app_destroy(c, 0);
+	game_destroy(c, 0);
 	if (keycode == 119)
 	c->keys.w = 1;
 	if (keycode == 115)

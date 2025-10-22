@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 16:50:25 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/22 12:50:55 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:13:30 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,9 +190,23 @@ int gfx_open(t_ctx *ctx);
 int	gfx_create_frame(t_ctx *c);
 int	load_texture(t_ctx *c, t_img *texture, char *path);
 int	load_textures(t_ctx *c);
+void init_player(t_ctx *ctx);
+
+
+void	game_destroy(t_ctx *c, int code);
+int	app_loop(t_ctx *c);
 
 
 
+// movement
+void move_forward(t_ctx *ctx, double mov_speed);
+void move_backward(t_ctx *ctx, double mov_speed);
+void move_right(t_ctx *ctx, double mov_speed);
+void move_left(t_ctx *ctx, double move_speed);
+void	handle_movement(t_ctx *c);
+
+// camera
+void rotate_camera(t_ctx *ctx, double rot_speed);
 
 
 
