@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 13:53:26 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/21 13:55:41 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/21 15:10:00 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ t_img *search_img(char *direction, t_ctx *rc)
     return (NULL);
 }
 
-t_img *get_wall_text(t_ctx *rc)  // ← Devuelve t_img*, no t_ctx*
+t_img *get_wall_tex(t_ctx *rc)  
 {
     if (rc->ray.side == 0)
     {
         if (rc->ray.ray_dir.x > 0)
-            return (search_img("east", rc));  // ← Pasa rc, no rc->mlx
+            return (search_img("east", rc));
         else
             return (search_img("west", rc));
     }
@@ -66,7 +66,7 @@ void draw_tex(t_ctx *rc, int x)
     int color;
     t_img *texture;
     
-    texture = get_wall_text(rc);
+    texture = get_wall_tex(rc);
     if (!texture || !texture->ptr)
         return;
     

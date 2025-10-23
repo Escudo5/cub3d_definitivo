@@ -16,14 +16,38 @@ GRAPHICS_DIR = srcs/graphics/
 GRAPHICS_SRCS = raycasting.c \
 	img_utils.c \
 	render.c \
-	texture.c
+	texture.c 
 GRAPHICS_PREFIX = $(addprefix $(GRAPHICS_DIR), $(GRAPHICS_SRCS))
 GRAPHICS_OBJS = $(GRAPHICS_PREFIX:.c=.o)
+
+# Movement
+
+MOVEMENT_DIR = srcs/movement/
+MOVEMENT_SRCS = camera_movement.c\
+	player_movement.c
+
+MOVEMENT_PREFIX = $(addprefix $(MOVEMENT_DIR), $(MOVEMENT_SRCS))
+MOVEMENT_OBJS = $(MOVEMENT_PREFIX:.c=.o)
+
+
+
+# Init
+
+INIT_DIR = srcs/init/
+INIT_SRCS = hook_utils.c\
+	init.c\
+	player_location.c
+
+INIT_PREFIX = $(addprefix $(INIT_DIR), $(INIT_SRCS))
+INIT_OBJS = $(INIT_PREFIX:.c=.o)
+
+
+
 
 # Flags, includes and compiler
 CFLAGS = -Wall -Wextra -Werror
 MLX_DIR = minilibx-linux/
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lbsd
 INCLUDES = -I./includes
 CC = cc
 RM = rm -f
@@ -37,9 +61,9 @@ RESET  = \033[0m
 
 all: $(NAME)
 
-$(NAME): $(CUBE_OBJS) $(GRAPHICS_OBJS) $(LIBFT_PREFX)
+$(NAME): $(CUBE_OBJS) $(GRAPHICS_OBJS) $(LIBFT_PREFX) $(MOVEMENT_OBJS) $(INIT_OBJS)
 	@echo "\n\n$(BLUE)Linking object files and libraries...$(RESET)\n\n"
-	$(CC) $(CFLAGS) -o $(NAME) $(CUBE_OBJS) $(GRAPHICS_OBJS) $(MLX_FLAGS) $(LIBFT_PREFX)
+	$(CC) $(CFLAGS) -o $(NAME) $(CUBE_OBJS) $(GRAPHICS_OBJS) $(MOVEMENT_OBJS) $(INIT_OBJS) $(LIBFT_PREFX) $(MLX_FLAGS)
 	@echo "\n\n$(GREEN)Build complete!$(RESET)\n\n"
 
 $(LIBFT_PREFX):
@@ -52,7 +76,7 @@ $(LIBFT_PREFX):
 
 clean:
 	@echo "\n\n$(RED)Cleaning object files...$(RESET)\n\n"
-	$(RM) $(CUBE_OBJS) $(GRAPHICS_OBJS)
+	$(RM) $(CUBE_OBJS) $(GRAPHICS_OBJS) $(MOVEMENT_OBJS) $(INIT_OBJS)
 	@cd $(LIBFT_DIR) && make clean
 
 fclean: clean
