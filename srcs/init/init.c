@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:42:16 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/22 16:09:27 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:47:53 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,33 +58,58 @@ int	gfx_create_frame(t_ctx *c)
 		
 int	load_texture(t_ctx *c, t_img *texture, char *path)
 {
-	int	w;
-	int	h;
-			
-	texture->ptr = mlx_xpm_file_to_image(c->mlx.ptr, path, &w, &h);
-	if (!texture->ptr)
-		return (0);	
-	texture->addr = mlx_get_data_addr(texture->ptr, &texture->bpp,
-		&texture->line_len, &texture->endian);
-	if (!texture->addr)
-		return (0);
-				
-	texture->w = w;
-	texture->h = h;
-				
-	return (1);
+    int	w;
+    int	h;
+
+    texture->ptr = mlx_xpm_file_to_image(c->mlx.ptr, path, &w, &h);
+    if (!texture->ptr)
+    {
+        printf("load_texture: failed to open %s\n", path);
+        return (0);
+    }
+    texture->addr = mlx_get_data_addr(texture->ptr, &texture->bpp,
+        &texture->line_len, &texture->endian);
+    if (!texture->addr)
+    {
+        printf("load_texture: mlx_get_data_addr failed for %s\n", path);
+        return (0);
+    }
+
+    texture->w = w;
+    texture->h = h;
+    printf("load_texture: %s -> w=%d h=%d bpp=%d line_len=%d endian=%d\n",
+        path, texture->w, texture->h, texture->bpp, texture->line_len, texture->endian);
+
+    return (1);
 }
 			
 int	load_textures(t_ctx *c)
 {
-	if (!load_texture(c, &c->tex_north, "./textures/north.xpm"))
+	if (!load_texture(c, &c->tex_north, "./textures/Minecraft_diamond.xpm"))
 	    return (0);
-	if (!load_texture(c, &c->tex_south, "./textures/south.xpm"))
+	if (!load_texture(c, &c->tex_south, "./textures/Minecraft_esmerald.xpm"))
 		return (0);
-	if (!load_texture(c, &c->tex_east, "./textures/east.xpm"))
+	if (!load_texture(c, &c->tex_east, "./textures/Minecraft_gold.xpm"))
 		return (0);
-	if (!load_texture(c, &c->tex_west, "./textures/west.xpm"))
+	if (!load_texture(c, &c->tex_west, "./textures/Minecraft_lapis.xpm"))
 		return (0);
 				
 	return (1);
+}
+int map_test(t_ctx *ctx)
+{
+    static char *map[] = {
+        "11111",
+        "10001",
+        "10N01",
+        "10001",
+        "11111",
+        NULL
+    };
+    ctx->map.grid = map;
+    ctx->map.h = 5;
+    ctx->map.w = 5;
+    for (int y = 0; y < ctx->map.h; y++)
+        printf("%s\n", ctx->map.grid[y]);
+    return (0);
 }

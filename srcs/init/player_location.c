@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 15:46:43 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/22 16:30:44 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/23 17:28:26 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void set_player_dir(t_ctx *ctx, char orient)
         ctx->player.plane.y = 0;
         
     }
-     else if (orient == 'S')
+    else if (orient == 'S')
     {
         ctx->player.dir.x = 0;
         ctx->player.dir.y = 1;

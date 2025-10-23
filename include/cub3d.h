@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 16:50:25 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/22 17:25:36 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:37:07 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ int	gfx_create_frame(t_ctx *c);
 int	load_texture(t_ctx *c, t_img *texture, char *path);
 int	load_textures(t_ctx *c);
 void init_player(t_ctx *ctx);
+int map_test(t_ctx *ctx);
 
 
 void	game_destroy(t_ctx *c, int code);

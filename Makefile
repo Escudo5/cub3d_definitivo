@@ -45,7 +45,7 @@ INIT_OBJS = $(INIT_PREFIX:.c=.o)
 
 
 # Flags, includes and compiler
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 MLX_DIR = minilibx-linux/
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lbsd
 INCLUDES = -I./includes
