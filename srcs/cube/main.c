@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 16:18:43 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/23 17:17:41 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/23 17:53:10 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	main(int argc, char **argv)
 	map_test(ctx);
 	if (!game_init(ctx))
 	{
+		printf("antes de destroy\n");
 		game_destroy(ctx, 1);
 		printf("!game_init\n");
 		return(1);

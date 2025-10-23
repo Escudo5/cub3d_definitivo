@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:42:16 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/23 16:47:53 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/23 17:55:13 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int game_init(t_ctx *ctx)
 	return(0);
 	
 	init_player(ctx);
+	printf("he entrado en init_player\n");
 	mlx_hook(ctx->mlx.win, 2, 1L << 0, hook_key_press, ctx);
 	mlx_hook(ctx->mlx.win, 3, 1L << 1, hook_key_release, ctx);
 	mlx_hook(ctx->mlx.win, 17, 0, hook_close, ctx);
@@ -58,29 +59,21 @@ int	gfx_create_frame(t_ctx *c)
 		
 int	load_texture(t_ctx *c, t_img *texture, char *path)
 {
-    int	w;
-    int	h;
-
-    texture->ptr = mlx_xpm_file_to_image(c->mlx.ptr, path, &w, &h);
-    if (!texture->ptr)
-    {
-        printf("load_texture: failed to open %s\n", path);
-        return (0);
-    }
-    texture->addr = mlx_get_data_addr(texture->ptr, &texture->bpp,
-        &texture->line_len, &texture->endian);
-    if (!texture->addr)
-    {
-        printf("load_texture: mlx_get_data_addr failed for %s\n", path);
-        return (0);
-    }
-
-    texture->w = w;
-    texture->h = h;
-    printf("load_texture: %s -> w=%d h=%d bpp=%d line_len=%d endian=%d\n",
-        path, texture->w, texture->h, texture->bpp, texture->line_len, texture->endian);
-
-    return (1);
+	int	w;
+	int	h;
+			
+	texture->ptr = mlx_xpm_file_to_image(c->mlx.ptr, path, &w, &h);
+	if (!texture->ptr)
+		return (0);	
+	texture->addr = mlx_get_data_addr(texture->ptr, &texture->bpp,
+		&texture->line_len, &texture->endian);
+	if (!texture->addr)
+		return (0);
+				
+	texture->w = w;
+	texture->h = h;
+				
+	return (1);
 }
 			
 int	load_textures(t_ctx *c)
