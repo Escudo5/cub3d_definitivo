@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 16:18:43 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/22 16:14:02 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:27:48 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	game_destroy(t_ctx *c, int code)
 	// if (c->map.grid)
 	// free_map(c);
 	
+	printf("game_Destory\n");
 	exit(code);
 }
 
@@ -64,6 +65,7 @@ int	main(int argc, char **argv)
 	if (!game_init(ctx))
 	{
 		game_destroy(ctx, 1);
+		printf("!game_init\n");
 		return(1);
 	}
 	mlx_loop_hook(ctx->mlx.ptr, app_loop, &ctx);
