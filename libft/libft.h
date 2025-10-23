@@ -6,7 +6,7 @@
 /*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:37:37 by acastrov          #+#    #+#             */
-/*   Updated: 2025/06/27 17:34:14 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/23 18:59:32 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,8 @@ void		ft_vector_init(t_vector *vector, size_t elem_size);
 void		ft_vector_free(t_vector *vector);
 int			ft_vector_push(t_vector *vector, const void *elem);
 void		*ft_vector_get(t_vector *vector, size_t index);
+
+/*Part 9 Cube*/
+int			ft_strcharset(const char *s, const char *charset);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 16:50:25 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/23 15:24:17 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/23 17:56:28 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ typedef struct s_keys
 	int			right;
 }				t_keys;
 
-
 typedef struct s_ray
 {
 	double camera_x;
@@ -138,6 +137,13 @@ typedef struct s_slice
 	double tex_pos; //posicion inicial en la textura para el primer pixel de draw_start.
 }t_slice;
 
+typedef struct s_path
+{
+	char *n;
+	char *s;
+	char *w;
+	char *e;
+}t_path;
 
 /* Contexto global: pasarás un puntero a esto a todas las funciones */
 typedef struct s_ctx
@@ -155,6 +161,7 @@ typedef struct s_ctx
 	t_ray		ray;
 	t_slice		slice;
 	t_vec2		vec2;
+	t_path		path;
 }				t_ctx;
 
 

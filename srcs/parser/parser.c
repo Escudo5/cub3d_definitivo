@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alejandro <alejandro@student.42.fr>        +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 19:48:01 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/22 21:50:35 by alejandro        ###   ########.fr       */
+/*   Updated: 2025/10/23 19:58:55 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,68 +37,67 @@ int	parser_extension(char *filename, int *mapfd)
 	return (SUCCESS);
 }
 
-int	store_imgs(t_ctx *cube, int *mapfd)
+int	store_imgs(t_ctx *cube, int *mapfd, char *temp)
 {
-	if (get_no(cube, mapfd) != SUCCESS)
+	if (!ft_strchr("NSWE", *temp))
 		return (INPUT_ERROR);
-	if (get_so(cube, mapfd) != SUCCESS)
+	if (get_no(cube, mapfd, temp) != SUCCESS)
 		return (INPUT_ERROR);
-	if (get_we(cube, mapfd) != SUCCESS)
+	if (get_so(cube, mapfd, temp) != SUCCESS)
 		return (INPUT_ERROR);
-	if (get_ea(cube, mapfd) != SUCCESS)
+	if (get_we(cube, mapfd, temp) != SUCCESS)
 		return (INPUT_ERROR);
-	ft_putstr_fd("Textures path ok\n", 2);
-	return (SUCCESS);
-}
-
-int	store_cf(t_ctx *cube, int *mapfd)
-{
-	if (get_f(cube, mapfd) != SUCCESS)
-		return (INPUT_ERROR);
-	if (get_C(cube, mapfd) != SUCCESS)
+	if (get_ea(cube, mapfd, temp) != SUCCESS)
 		return (INPUT_ERROR);
 	return (SUCCESS);
 }
 
-// int	parser_clean_map(char *filename, t_map *map)
-// {
-// 	int		mapfd;
-// 	char	*temp;
+int	store_cf(t_ctx *cube, int *mapfd, char *temp)
+{
+	if (!ft_strchr("CF", *temp))
+		return (INPUT_ERROR);
+	if (get_f(cube, mapfd, temp) != SUCCESS)
+		return (INPUT_ERROR);
+	if (get_c(cube, mapfd, temp) != SUCCESS)
+		return (INPUT_ERROR);
+	return (SUCCESS);
+}
 
-// 	mapfd = open(filename, O_RDONLY);
-// 	temp = ft_strtrim(get_next_line(mapfd));
-// 	if (temp == NULL){
-// 		close(mapfd);
-// 		return (INPUT_ERROR);
-// 	}
-// 	map->height = 1;
-// 	map->width = ft_strlen(temp);
-// 	while (temp)
-// }
+int	store_map(t_ctx *cube, int *mapfd, char *temp)
+{
+	if (get_dimensions(cube, mapfd, temp) != SUCCESS)
+		return (INPUT_ERROR);
+	if (copy_map(cube, mapfd, temp) != SUCCESS)
+		return (INPUT_ERROR);
+}
 
 int	parser(char *argv, t_ctx *cube)
 {
 	int		mapfd;
+	char	*temp;
 
 	if (parser_extension(argv, &mapfd) != SUCCESS)
 		return (INPUT_ERROR);
-	if (store_imgs(cube, &mapfd) != SUCCESS)
-		return (INPUT_ERROR);
-	if (store_cf(cube, &mapfd) != SUCCESS)
-		return (INPUT_ERROR);
-	// map = malloc(sizeof(t_map));
-	// if (!map)
-	// 	return (MALLOC_ERROR);
-	// if (parser_store_map(argv[1], &map) != SUCCESS)
-	// {
-	// 	free(map);
-	// 	return (INPUT_ERROR);
-	// }
-	// cube->map = map;
-	gnl_cleanup(mapfd);
-	ft_putstr_fd("Textures path ok\n", 2);
-	close(mapfd);
-	return (SUCCESS);
+	temp = get_next_line(mapfd);
+	if (!temp)
+		return (exit_parser(NULL, &mapfd, "Empty file\n", INPUT_ERROR));
+	while (temp)
+	{
+		if (temp[0] == '\n')
+			;
+		else if (store_imgs(cube, &mapfd, temp) == SUCCESS
+			|| store_cf(cube, &mapfd, temp) == SUCCESS)
+			;
+		else if (ft_strcharset(temp, " 01NSEW") == SUCCESS)
+			break ;
+		else
+			return (exit_parser(temp, &mapfd, "Invalid file\n", INPUT_ERROR));
+		free(temp);
+		temp = get_next_line(mapfd);
+	}
+	if (store_map(cube, &mapfd, temp) != SUCCESS)
+		return (exit_parser(temp, &mapfd, "Invalid map\n", INPUT_ERROR));
+	return (exit_parser(temp, &mapfd, "All ok!\n", SUCCESS));
 }
 
 int	main(int argc, char **argv)
@@ -115,18 +114,17 @@ int	main(int argc, char **argv)
 		return (MALLOC_ERROR);
 	if (parser(argv[1], cube) != SUCCESS)
 	{
-		free(cube->tex_north.addr);
-		free(cube->tex_south.addr);
-		free(cube->tex_west.addr);
-		free(cube->tex_east.addr);
+		free(cube->path.n);
+		free(cube->path.s);
+		free(cube->path.w);
+		free(cube->path.e);
 		free(cube);
 		return (INPUT_ERROR);
 	}
-	// free(cube->map);
-	free(cube->tex_north.addr);
-	free(cube->tex_south.addr);
-	free(cube->tex_west.addr);
-	free(cube->tex_east.addr);
+	free(cube->path.n);
+	free(cube->path.s);
+	free(cube->path.w);
+	free(cube->path.e);
 	free(cube);
 	return (SUCCESS);
 }

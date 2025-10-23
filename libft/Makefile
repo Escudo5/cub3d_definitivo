@@ -6,7 +6,7 @@
 #    By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/27 17:54:28 by acastrov          #+#    #+#              #
-#    Updated: 2025/06/15 19:37:56 by acastrov         ###   ########.fr        #
+#    Updated: 2025/10/23 19:00:47 by acastrov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,8 @@ SRCS =	ft_isalnum.c \
 	ft_realloc.c \
 	ft_vector.c \
 	ft_isoperator.c \
-	ft_valid_varname.c
+	ft_valid_varname.c \
+	ft_strcharset.c
 
 OBJS = $(SRCS:.c=.o)
 
