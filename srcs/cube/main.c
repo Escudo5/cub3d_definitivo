@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 16:18:43 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/22 17:27:48 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/23 17:53:10 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,23 @@ int	main(int argc, char **argv)
 {
 	t_ctx *ctx;
 	
-	if (argc != 2)
-		return(1);
-	if (argv[1])
-		printf("hi\n");
-	ft_memset(&ctx, 0, sizeof(t_ctx));
+	if (argc != 2 && argv)
+		printf("hi");
+	ctx = ft_calloc(1, sizeof(t_ctx));
+
+	//ft_memset(&ctx, 0, sizeof(t_ctx));
+	// if (argv[0])
+	// 	printf("A\n");
 	// if(!parse_file(argv[1],  &ctx))
 	// 	return(1);
+	map_test(ctx);
 	if (!game_init(ctx))
 	{
+		printf("antes de destroy\n");
 		game_destroy(ctx, 1);
 		printf("!game_init\n");
 		return(1);
 	}
-	mlx_loop_hook(ctx->mlx.ptr, app_loop, &ctx);
+	mlx_loop_hook(ctx->mlx.ptr, app_loop, ctx);
 	mlx_loop(ctx->mlx.ptr);
 }
