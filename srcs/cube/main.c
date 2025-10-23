@@ -3,26 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 16:18:43 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/20 19:50:28 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:27:48 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../include/cub3d.h"
 
-int	main(void)
+int	app_loop(t_ctx *c)
 {
-	void *mlx_init();
-	void *mlx_new_window(void *mlx_ptr, int size_x, int size_y, char *title);
-	void *mlx_new_image(void *mlx_ptr, int width, int height);
-	char *mlx_get_data_addr(void *img_ptr, int *bits_per_pixel, int *size_line,
-		int *endian);
-	int mls_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr,
-		int x, int y);
-	int mlx_loop(void *mlx_ptr);
-	int mlx_hook(void *win_ptr, int x_event, int x_mask, int (*funct)(),
-		void *param);
-	int mlx_loop_hook(void *mlx_ptr, int (*funct_ptr)(), void *param);
+	handle_movement(c);
+	raycast(c);
+	return (0);
+}
+
+
+
+void	game_destroy(t_ctx *c, int code)
+{
+	if (c->tex_north.ptr)
+	mlx_destroy_image(c->mlx.ptr, c->tex_north.ptr);
+	if (c->tex_south.ptr)
+	mlx_destroy_image(c->mlx.ptr, c->tex_south.ptr);
+	if (c->tex_east.ptr)
+	mlx_destroy_image(c->mlx.ptr, c->tex_east.ptr);
+	if (c->tex_west.ptr)
+	mlx_destroy_image(c->mlx.ptr, c->tex_west.ptr);
+	
+	if (c->frame.ptr)
+	mlx_destroy_image(c->mlx.ptr, c->frame.ptr);
+	
+	if (c->mlx.win)
+	mlx_destroy_window(c->mlx.ptr, c->mlx.win);
+	
+	if (c->mlx.ptr)
+	{
+		mlx_destroy_display(c->mlx.ptr);
+		free(c->mlx.ptr);
+	}
+	
+	// if (c->map.grid)
+	// free_map(c);
+	
+	printf("game_Destory\n");
+	exit(code);
+}
+
+int	main(int argc, char **argv)
+{
+	t_ctx *ctx;
+	
+	if (argc != 2)
+		return(1);
+	if (argv[1])
+		printf("hi\n");
+	ft_memset(&ctx, 0, sizeof(t_ctx));
+	// if(!parse_file(argv[1],  &ctx))
+	// 	return(1);
+	if (!game_init(ctx))
+	{
+		game_destroy(ctx, 1);
+		printf("!game_init\n");
+		return(1);
+	}
+	mlx_loop_hook(ctx->mlx.ptr, app_loop, &ctx);
+	mlx_loop(ctx->mlx.ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 16:50:25 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/21 13:43:36 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:25:36 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <math.h>
 #include <fcntl.h>
 #include "../minilibx-linux/mlx.h"
+#include "../libft/libft.h"
+#include <stdio.h>
 
 /* Constantes de ventana por defecto (ajusta luego con el parser .cub) */
 # define WIN_W 800
@@ -144,32 +146,15 @@ typedef struct s_ctx
 	t_vec2 vec2;
 }				t_ctx;
 
-/* Prototipos mínimos para los primeros sprints (ajusta según módulos) */
-int				app_init(t_ctx *c);
-int				app_loop(t_ctx *c);
-void			app_destroy(t_ctx *c, int code);
-
-/* GFX */
-int				gfx_open(t_ctx *c);
-int				gfx_create_frame(t_ctx *c);
-void			gfx_clear(t_ctx *c, uint32_t color);
-void			gfx_present(t_ctx *c);
-void			gfx_vline(t_ctx *c, int x, int y0, int y1, uint32_t color);
-
-/* Hooks */
-int				hook_close(t_ctx *c);
-int				hook_key_press(int keycode, t_ctx *c);
-int				hook_key_release(int keycode, t_ctx *c);
-
-
-
 
 //raycasting 
 
 void	calc_ray(t_ctx *rc);
 void	dda(t_ctx *rc);
 void	wall_dist(t_ctx *rc);
+void calc_tex_pos(t_ctx *rc);
 void	raycast(t_ctx *rc);
+
 
 //render
 void put_pixel(t_ctx *rc, int x , int y, uint32_t color);
@@ -184,14 +169,45 @@ void draw_mix(t_ctx *rc);
 
 int set_color(t_color color);
 t_color get_color(int color);
-t_img *get_wall_tex(t_ctx *rc);
 t_img *search_img(char *tex, t_ctx *rc);
+t_img *get_wall_tex(t_ctx *rc);
 void draw_tex(t_ctx *rc, int x);
 
 
 //img_utils
 
 
+//hooks
+
+int	hook_close(t_ctx *c);
+int	hook_key_press(int keycode, t_ctx *c);
+int	hook_key_release(int keycode, t_ctx *c);
+
+
+//init
+
+int game_init(t_ctx *ctx);
+int gfx_open(t_ctx *ctx);
+int	gfx_create_frame(t_ctx *c);
+int	load_texture(t_ctx *c, t_img *texture, char *path);
+int	load_textures(t_ctx *c);
+void init_player(t_ctx *ctx);
+
+
+void	game_destroy(t_ctx *c, int code);
+int	app_loop(t_ctx *c);
+
+
+
+// movement
+void move_forward(t_ctx *ctx, double mov_speed);
+void move_backward(t_ctx *ctx, double mov_speed);
+void move_right(t_ctx *ctx, double mov_speed);
+void move_left(t_ctx *ctx, double move_speed);
+void	handle_movement(t_ctx *c);
+
+// camera
+void rotate_camera(t_ctx *ctx, double rot_speed);
 
 
 
