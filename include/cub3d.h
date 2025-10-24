@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alejandro <alejandro@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 16:50:25 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/23 20:10:12 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/24 19:15:12 by alejandro        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,23 +145,31 @@ typedef struct s_path
 	char *e;
 }t_path;
 
+typedef struct s_player_start
+{
+	int		y;
+	int		x;
+	char	orientation;
+}t_player_start;
+
 /* Contexto global: pasarás un puntero a esto a todas las funciones */
 typedef struct s_ctx
 {
-	t_mlx		mlx;
-	t_img		frame;
-	t_img		tex_north;
-	t_img		tex_south;
-	t_img		tex_east;
-	t_img		tex_west;
-	t_cfg		cfg;
-	t_player	player;
-	t_map		map;
-	t_keys		keys;
-	t_ray		ray;
-	t_slice		slice;
-	t_vec2		vec2;
-	t_path		path;
+	t_mlx			mlx;
+	t_img			frame;
+	t_img			tex_north;
+	t_img			tex_south;
+	t_img			tex_east;
+	t_img			tex_west;
+	t_cfg			cfg;
+	t_player		player;
+	t_player_start	player_start;
+	t_map			map;
+	t_keys			keys;
+	t_ray			ray;
+	t_slice			slice;
+	t_vec2			vec2;
+	t_path			path;
 }				t_ctx;
 
 

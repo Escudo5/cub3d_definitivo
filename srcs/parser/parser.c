@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alejandro <alejandro@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 19:48:01 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/23 19:58:55 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/24 19:16:05 by alejandro        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ int	store_cf(t_ctx *cube, int *mapfd, char *temp)
 	return (SUCCESS);
 }
 
-int	store_map(t_ctx *cube, int *mapfd, char *temp)
-{
-	if (get_dimensions(cube, mapfd, temp) != SUCCESS)
-		return (INPUT_ERROR);
-	if (copy_map(cube, mapfd, temp) != SUCCESS)
-		return (INPUT_ERROR);
-}
+// int	store_map(t_ctx *cube, int *mapfd, char *temp)
+// {
+// 	if (get_dimensions(cube, mapfd, temp) != SUCCESS)
+// 		return (INPUT_ERROR);
+// 	if (copy_map(cube, mapfd, temp) != SUCCESS)
+// 		return (INPUT_ERROR);
+// }
 
 int	parser(char *argv, t_ctx *cube)
 {
@@ -97,7 +97,7 @@ int	parser(char *argv, t_ctx *cube)
 	}
 	if (store_map(cube, &mapfd, temp) != SUCCESS)
 		return (exit_parser(temp, &mapfd, "Invalid map\n", INPUT_ERROR));
-	return (exit_parser(temp, &mapfd, "All ok!\n", SUCCESS));
+	return (exit_parser(NULL, &mapfd, "All ok!\n", SUCCESS));
 }
 
 int	main(int argc, char **argv)
@@ -121,6 +121,8 @@ int	main(int argc, char **argv)
 		free(cube);
 		return (INPUT_ERROR);
 	}
+	printf("Player orientation %c\n", cube->player_start.orientation);
+	printf("Player position y: %d\n and x: %d\n", cube->player_start.y, cube->player_start.x);
 	free(cube->path.n);
 	free(cube->path.s);
 	free(cube->path.w);
