@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alejandro <alejandro@student.42.fr>        +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 18:26:54 by alejandro         #+#    #+#             */
-/*   Updated: 2025/10/24 19:00:28 by alejandro        ###   ########.fr       */
+/*   Updated: 2025/10/27 18:30:03 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	gnl_cleanup(int fd)
 int	exit_parser(char *temp, int *fd, char *message, int flag)
 {
 	ft_putstr_fd(message, 2);
+	if (temp != NULL)
+		free(temp);
 	gnl_cleanup(*fd);
 	close(*fd);
-	// if (temp)
-	// 	free(temp);
 	return (flag);
 }
 

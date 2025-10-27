@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alejandro <alejandro@student.42.fr>        +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 19:58:35 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/24 19:15:36 by alejandro        ###   ########.fr       */
+/*   Updated: 2025/10/27 18:27:56 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,32 +179,18 @@ int	store_map(t_ctx *cube, int *mapfd, char *temp)
 	char	**map;
 
 	if (store_grid(cube, mapfd, temp, &map) != SUCCESS)
-		return (free_grid(map, "Invalid map\n", INPUT_ERROR));
+		return (free_grid(map, "Invalid symbol\n", INPUT_ERROR));
 	if (normalize_map(cube, &map) != SUCCESS)
 		return (free_grid(map, "Invalid map\n", INPUT_ERROR));
 	if (fill_gaps(cube, &map) != SUCCESS)
 		return (free_grid(map, "Invalid map\n", INPUT_ERROR));
 	if (validate_map(cube, map) != SUCCESS)
-		return (free_grid(map, "Invalid map\n", INPUT_ERROR));
+		return (free_grid(map, "Not closed map\n", INPUT_ERROR));
 	if (get_player_position(cube, map) != SUCCESS)
-		return (free_grid(map, "Invalid map\n", INPUT_ERROR));
+		return (free_grid(map, "Invalid player\n", INPUT_ERROR));
 	print_map(map, cube->map.h);
 	return (free_grid(map, "Success\n", SUCCESS));
 }
 
-// // Player position
-// int player_count = 0;
-// for (int y = 0; y < map_height; y++) {
-//     for (int x = 0; x < max_len; x++) {
-//         if (ft_strchr("NSEW", map[y][x])) {
-//             cube->player.x = x;
-//             cube->player.y = y;
-//             cube->player.dir = map[y][x];
-//             player_count++;
-//         }
-//     }
-// }
-// if (player_count != 1)
-//     return (exit_parser(NULL, &mapfd, "Invalid number of players\n", INPUT_ERROR));
 
 
