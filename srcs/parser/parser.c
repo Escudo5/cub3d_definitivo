@@ -6,7 +6,7 @@
 /*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 19:48:01 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/28 18:18:25 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/28 18:38:27 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,28 +92,28 @@ int	parser(char *argv, t_ctx *cube)
 	return (exit_parser(NULL, &mapfd, "All ok!\n", SUCCESS));
 }
 
-int	main(int argc, char **argv)
-{
-	t_ctx	*cube;
+// int	main(int argc, char **argv)
+// {
+// 	t_ctx	*cube;
 
-	if (argc != 2 || !argv[1])
-	{
-		ft_printf("Incorrect number of arguments\n");
-		return (SUCCESS);
-	}
-	cube = ft_calloc(1, sizeof(t_ctx));
-	if (!cube)
-		return (MALLOC_ERROR);
-	if (parser(argv[1], cube) != SUCCESS)
-	{
-		free_paths(cube);
-		free(cube);
-		return (INPUT_ERROR);
-	}
-	printf("Player orientation %c\n", cube->player_start.orientation);
-	printf("Player position y: %d\n and x: %d\n",
-		cube->player_start.y, cube->player_start.x);
-	free_paths(cube);
-	free(cube);
-	return (SUCCESS);
-}
+// 	if (argc != 2 || !argv[1])
+// 	{
+// 		ft_printf("Incorrect number of arguments\n");
+// 		return (SUCCESS);
+// 	}
+// 	cube = ft_calloc(1, sizeof(t_ctx));
+// 	if (!cube)
+// 		return (MALLOC_ERROR);
+// 	if (parser(argv[1], cube) != SUCCESS)
+// 	{
+// 		free_paths(cube);
+// 		free(cube);
+// 		return (INPUT_ERROR);
+// 	}
+// 	printf("Player orientation %c\n", cube->player_start.orientation);
+// 	printf("Player position y: %d\n and x: %d\n",
+// 		cube->player_start.y, cube->player_start.x);
+// 	free_paths(cube);
+// 	free(cube);
+// 	return (SUCCESS);
+// }
