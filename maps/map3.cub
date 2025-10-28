@@ -1,19 +1,18 @@
 
-NO ./textures/Minecraft_lapis.xpm
-SO ./textures/Minecraft_gold.xpm
-EA ./textures/Minecraft_diamond.xpm
-WE ./textures/Minecraft_esmerald.xpm
-DO ./textures/Door_2.xpm
+NO ../../textures/wall_1.xpm
+SO ../../textures/wall_1.xpm
+EA ../../textures/wall_1.xpm
+WE ../../textures/wall_1.xpm
 
 F 1,1,1
 C 2,2,2
 
 111111111
 101000001
-101001001                              
+ 101001001    1 
 111000001111111111111111111111111111
 100000000000000000000000000000000001
-1000000000000N0000000000D00000000001
+1000000000000N0000000000000000000001
 100000000000000000000000000000000001
 100010000000000000000000000001001001
 100000000000000000000000000000000001

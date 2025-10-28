@@ -6,7 +6,7 @@
 /*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 19:58:35 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/27 18:27:56 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/28 18:18:15 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,13 @@ int	store_grid(t_ctx *cube, int	*mapfd, char *temp, char ***map)
 	while (temp)
 	{
 		if (!ft_strcharset(temp, " 01NSWE\n"))
+		{
+			ft_putstr_fd("Issue at line ", 2);
+			ft_putstr_fd(temp, 2);
+			free(temp);
+			temp = NULL;
 			return (INPUT_ERROR);
+		}
 		(*map)[map_height++] = ft_strtrim(temp, "\n");
 		free(temp);
 		temp = NULL;
@@ -33,34 +39,6 @@ int	store_grid(t_ctx *cube, int	*mapfd, char *temp, char ***map)
 	(*map)[map_height] = NULL;
 	cube->map.h = map_height;
 	return (SUCCESS);
-}
-
-char	*pad_map(char *line, int width)
-{
-	int		len;
-	int		i;
-	char	*new_line;
-
-	len = ft_strlen(line);
-	new_line = malloc(width + 1);
-	if (!new_line)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		new_line[i] = line[i];
-		i++;
-	}
-	new_line[i] = 'Z';
-	i++;
-	while (i < width)
-	{
-		new_line[i] = ' ';
-		i++;
-	}
-	new_line[i] = '\0';
-	free(line);
-	return (new_line);
 }
 
 int	fill_gaps(t_ctx *cube, char ***map)
@@ -78,7 +56,7 @@ int	fill_gaps(t_ctx *cube, char ***map)
 		{
 			if (ft_strchr("01NSWE", (*map)[i][j]) && flag == 0)
 				flag = 1;
-			if (flag == 1 && (*map)[i][j] == ' ')
+			if (flag == 1 && (*map)[i][j] == ' ' && has_char((*map)[i], j))
 				(*map)[i][j] = '0';
 			if (flag == 1 && (*map)[i][j] == 'Z')
 			{
@@ -92,35 +70,11 @@ int	fill_gaps(t_ctx *cube, char ***map)
 	return (SUCCESS);
 }
 
-int	normalize_map(t_ctx *cube, char ***map)
-{
-	int	max_len;
-	int	i;
-
-	max_len = 0;
-	i = 0;
-	while (i < cube->map.h)
-	{
-		if (ft_strlen((*map)[i]) > max_len)
-			max_len = ft_strlen((*map)[i]);
-		i++;
-	}
-	cube->map.w = max_len;
-	i = 0;
-	while (i < cube->map.h)
-	{
-		if (ft_strlen((*map)[i]) < cube->map.w)
-			(*map)[i] = pad_map((*map)[i], cube->map.w);
-		i++;
-	}
-	return (SUCCESS);
-}
-
 int	validate_map(t_ctx *cube, char **map)
 {
 	int		y;
 	char	*temp;
-	
+
 	y = 0;
 	while (y < cube->map.h)
 	{
@@ -128,8 +82,8 @@ int	validate_map(t_ctx *cube, char **map)
 		if ((y == 0 || y == cube->map.h - 1)
 			&& ft_strcharset(temp, "0NSEW"))
 		{
-				free(temp);
-				return (INPUT_ERROR);
+			free(temp);
+			return (INPUT_ERROR);
 		}
 		else
 		{
@@ -150,7 +104,7 @@ int	get_player_position(t_ctx *cube, char **map)
 	int	player_count;
 	int	x;
 	int	y;
-	
+
 	y = 0;
 	player_count = 0;
 	while (y < cube->map.h)
@@ -158,7 +112,7 @@ int	get_player_position(t_ctx *cube, char **map)
 		x = 0;
 		while (x < cube->map.w)
 		{
-			if (ft_strchr("NSEW", map[y][x])) // Check where to put them
+			if (ft_strchr("NSEW", map[y][x]))
 			{
 				player_count++;
 				cube->player_start.orientation = map[y][x];
@@ -180,6 +134,8 @@ int	store_map(t_ctx *cube, int *mapfd, char *temp)
 
 	if (store_grid(cube, mapfd, temp, &map) != SUCCESS)
 		return (free_grid(map, "Invalid symbol\n", INPUT_ERROR));
+	if (validate_textures(cube) != SUCCESS)
+		return (free_grid(map, "Invalid textures\n", INPUT_ERROR));
 	if (normalize_map(cube, &map) != SUCCESS)
 		return (free_grid(map, "Invalid map\n", INPUT_ERROR));
 	if (fill_gaps(cube, &map) != SUCCESS)
@@ -191,6 +147,3 @@ int	store_map(t_ctx *cube, int *mapfd, char *temp)
 	print_map(map, cube->map.h);
 	return (free_grid(map, "Success\n", SUCCESS));
 }
-
-
-
