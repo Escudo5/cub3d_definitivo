@@ -6,11 +6,12 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 16:18:43 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/23 17:53:10 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/28 18:41:20 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../include/cub3d.h"
+# include "../../include/parser.h"
 
 int	app_loop(t_ctx *c)
 {
@@ -56,15 +57,15 @@ int	main(int argc, char **argv)
 	t_ctx *ctx;
 	
 	if (argc != 2 && argv)
-		printf("hi");
+		printf("hi\ngit");
 	ctx = ft_calloc(1, sizeof(t_ctx));
-
+	parser(argv[1], ctx);
 	//ft_memset(&ctx, 0, sizeof(t_ctx));
 	// if (argv[0])
 	// 	printf("A\n");
 	// if(!parse_file(argv[1],  &ctx))
 	// 	return(1);
-	map_test(ctx);
+
 	if (!game_init(ctx))
 	{
 		printf("antes de destroy\n");

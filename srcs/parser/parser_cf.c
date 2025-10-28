@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 19:09:40 by alejandro         #+#    #+#             */
-/*   Updated: 2025/10/23 19:17:28 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/28 18:50:51 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	parse_line(char *temp, int *colors, char *set)
 	return (SUCCESS);
 }
 
-int	get_f(t_ctx *cube, int *mapfd, char *temp)
+int	get_f(t_ctx *cube, char *temp)
 {
-	char	*temp_color;
+	// char	*temp_color;
 	int		colors[3];
 
 	if (*temp != 'F')
@@ -65,9 +65,9 @@ int	get_f(t_ctx *cube, int *mapfd, char *temp)
 	return (SUCCESS);
 }
 
-int	get_c(t_ctx *cube, int *mapfd, char *temp)
+int	get_c(t_ctx *cube, char *temp)
 {
-	char	*temp_color;
+	// char	*temp_color;
 	int		colors[3];
 
 	if (*temp != 'C')

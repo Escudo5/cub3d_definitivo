@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 18:26:54 by alejandro         #+#    #+#             */
-/*   Updated: 2025/10/28 18:18:08 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/28 18:56:43 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int	has_char(const char *str, int start)
 
 char	*pad_map(char *line, int width)
 {
-	int		len;
-	int		i;
+	size_t		len;
+	size_t		i;
 	char	*new_line;
 
 	len = ft_strlen(line);
@@ -70,7 +70,7 @@ char	*pad_map(char *line, int width)
 	}
 	new_line[i] = 'Z';
 	i++;
-	while (i < width)
+	while (i < (size_t)width)
 	{
 		new_line[i] = ' ';
 		i++;
@@ -82,12 +82,12 @@ char	*pad_map(char *line, int width)
 
 int	normalize_map(t_ctx *cube, char ***map)
 {
-	int	max_len;
-	int	i;
+	size_t	max_len;
+	size_t	i;
 
 	max_len = 0;
 	i = 0;
-	while (i < cube->map.h)
+	while (i < (size_t)cube->map.h)
 	{
 		if (ft_strlen((*map)[i]) > max_len)
 			max_len = ft_strlen((*map)[i]);
@@ -95,9 +95,9 @@ int	normalize_map(t_ctx *cube, char ***map)
 	}
 	cube->map.w = max_len;
 	i = 0;
-	while (i < cube->map.h)
+	while (i < (size_t)cube->map.h)
 	{
-		if (ft_strlen((*map)[i]) < cube->map.w)
+		if (ft_strlen((*map)[i]) < (size_t)cube->map.w)
 			(*map)[i] = pad_map((*map)[i], cube->map.w);
 		i++;
 	}

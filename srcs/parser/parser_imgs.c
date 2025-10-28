@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parser_imgs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 18:34:47 by alejandro         #+#    #+#             */
-/*   Updated: 2025/10/28 18:18:36 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/28 18:52:59 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../../include/parser.h"
 
-int	get_no(t_ctx *cube, int	*mapfd, char *temp)
+int	get_no(t_ctx *cube, char *temp)
 {
 	if (!ft_strncmp(temp, "NO", 2))
 	{
@@ -34,7 +34,7 @@ int	get_no(t_ctx *cube, int	*mapfd, char *temp)
 	return (SUCCESS);
 }
 
-int	get_so(t_ctx *cube, int	*mapfd, char *temp)
+int	get_so(t_ctx *cube, char *temp)
 {
 	if (!ft_strncmp(temp, "SO", 2))
 	{
@@ -55,7 +55,7 @@ int	get_so(t_ctx *cube, int	*mapfd, char *temp)
 	return (SUCCESS);
 }
 
-int	get_we(t_ctx *cube, int	*mapfd, char *temp)
+int	get_we(t_ctx *cube, char *temp)
 {
 	if (!ft_strncmp(temp, "WE", 2))
 	{
@@ -76,7 +76,7 @@ int	get_we(t_ctx *cube, int	*mapfd, char *temp)
 	return (SUCCESS);
 }
 
-int	get_ea(t_ctx *cube, int	*mapfd, char *temp)
+int	get_ea(t_ctx *cube, char *temp)
 {
 	if (!ft_strncmp(temp, "EA", 2))
 	{

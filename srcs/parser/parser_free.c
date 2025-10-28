@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parser_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 17:18:28 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/28 18:05:35 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/28 18:51:31 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../../include/parser.h"
 
-int	exit_parser(char *temp, int *fd, char *message, int flag)
+int	exit_parser(int *fd, char *message, int flag)
 {
 	ft_putstr_fd(message, 2);
 	gnl_cleanup(*fd);

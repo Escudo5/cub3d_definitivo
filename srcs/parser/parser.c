@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 19:48:01 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/28 18:38:27 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/28 18:59:21 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,28 @@ int	parser_extension(char *filename, int *mapfd)
 	return (SUCCESS);
 }
 
-int	store_imgs(t_ctx *cube, int *mapfd, char *temp)
+int	store_imgs(t_ctx *cube, char *temp)
 {
 	if (!ft_strchr("NSWE", *temp))
 		return (INPUT_ERROR);
-	if (get_no(cube, mapfd, temp) != SUCCESS)
+	if (get_no(cube, temp) != SUCCESS)
 		return (INPUT_ERROR);
-	if (get_so(cube, mapfd, temp) != SUCCESS)
+	if (get_so(cube, temp) != SUCCESS)
 		return (INPUT_ERROR);
-	if (get_we(cube, mapfd, temp) != SUCCESS)
+	if (get_we(cube, temp) != SUCCESS)
 		return (INPUT_ERROR);
-	if (get_ea(cube, mapfd, temp) != SUCCESS)
+	if (get_ea(cube, temp) != SUCCESS)
 		return (INPUT_ERROR);
 	return (SUCCESS);
 }
 
-int	store_cf(t_ctx *cube, int *mapfd, char *temp)
+int	store_cf(t_ctx *cube, char *temp)
 {
 	if (!ft_strchr("CF", *temp))
 		return (INPUT_ERROR);
-	if (get_f(cube, mapfd, temp) != SUCCESS)
+	if (get_f(cube, temp) != SUCCESS)
 		return (INPUT_ERROR);
-	if (get_c(cube, mapfd, temp) != SUCCESS)
+	if (get_c(cube, temp) != SUCCESS)
 		return (INPUT_ERROR);
 	return (SUCCESS);
 }
@@ -72,24 +72,24 @@ int	parser(char *argv, t_ctx *cube)
 		return (INPUT_ERROR);
 	temp = get_next_line(mapfd);
 	if (!temp)
-		return (exit_parser(NULL, &mapfd, "Empty file\n", INPUT_ERROR));
+		return (exit_parser( &mapfd, "Empty file\n", INPUT_ERROR));
 	while (temp)
 	{
 		if (temp[0] == '\n')
 			;
-		else if (store_imgs(cube, &mapfd, temp) == SUCCESS
-			|| store_cf(cube, &mapfd, temp) == SUCCESS)
+		else if (store_imgs(cube, temp) == SUCCESS
+			|| store_cf(cube, temp) == SUCCESS)
 			;
 		else if (ft_strcharset(temp, " 01NSEW") == SUCCESS)
 			break ;
 		else
-			return (exit_parser(temp, &mapfd, "Invalid file\n", INPUT_ERROR));
+			return (exit_parser(&mapfd, "Invalid file\n", INPUT_ERROR));
 		free(temp);
 		temp = get_next_line(mapfd);
 	}
 	if (store_map(cube, &mapfd, temp) != SUCCESS)
-		return (exit_parser(temp, &mapfd, "Invalid map\n", INPUT_ERROR));
-	return (exit_parser(NULL, &mapfd, "All ok!\n", SUCCESS));
+		return (exit_parser(&mapfd, "Invalid map\n", INPUT_ERROR));
+	return (exit_parser(&mapfd, "All ok!\n", SUCCESS));
 }
 
 // int	main(int argc, char **argv)

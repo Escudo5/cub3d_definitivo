@@ -29,7 +29,19 @@ MOVEMENT_SRCS = camera_movement.c\
 MOVEMENT_PREFIX = $(addprefix $(MOVEMENT_DIR), $(MOVEMENT_SRCS))
 MOVEMENT_OBJS = $(MOVEMENT_PREFIX:.c=.o)
 
+#parser
 
+PARSER_DIR = srcs/parser/
+PARSER_SRCS = parser_cf.c\
+	parser_free.c\
+	parser_imgs.c\
+	parser_map.c\
+	parser_paths.c\
+	parser_utils.c\
+	parser.c
+
+PARSER_PREFIX = $(addprefix $(PARSER_DIR), $(PARSER_SRCS))
+PARSER_OBJS = $(PARSER_PREFIX:.c=.o)
 
 # Init
 
@@ -61,9 +73,9 @@ RESET  = \033[0m
 
 all: $(NAME)
 
-$(NAME): $(CUBE_OBJS) $(GRAPHICS_OBJS) $(LIBFT_PREFX) $(MOVEMENT_OBJS) $(INIT_OBJS)
+$(NAME): $(CUBE_OBJS) $(GRAPHICS_OBJS) $(LIBFT_PREFX) $(MOVEMENT_OBJS) $(INIT_OBJS) $(PARSER_OBJS)
 	@echo "\n\n$(BLUE)Linking object files and libraries...$(RESET)\n\n"
-	$(CC) $(CFLAGS) -o $(NAME) $(CUBE_OBJS) $(GRAPHICS_OBJS) $(MOVEMENT_OBJS) $(INIT_OBJS) $(LIBFT_PREFX) $(MLX_FLAGS)
+	$(CC) $(CFLAGS) -o $(NAME) $(CUBE_OBJS) $(GRAPHICS_OBJS) $(MOVEMENT_OBJS) $(INIT_OBJS) $(PARSER_OBJS) $(LIBFT_PREFX) $(MLX_FLAGS)
 	@echo "\n\n$(GREEN)Build complete!$(RESET)\n\n"
 
 $(LIBFT_PREFX):
@@ -76,7 +88,7 @@ $(LIBFT_PREFX):
 
 clean:
 	@echo "\n\n$(RED)Cleaning object files...$(RESET)\n\n"
-	$(RM) $(CUBE_OBJS) $(GRAPHICS_OBJS) $(MOVEMENT_OBJS) $(INIT_OBJS)
+	$(RM) $(CUBE_OBJS) $(GRAPHICS_OBJS) $(MOVEMENT_OBJS) $(INIT_OBJS) $(PARSER_OBJS)
 	@cd $(LIBFT_DIR) && make clean
 
 fclean: clean
