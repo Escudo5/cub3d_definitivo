@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 12:32:32 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/29 18:20:34 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/29 18:57:17 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,25 @@ void	calc_ray(t_ctx *rc)
 	if (rc->ray.ray_dir.x < 0)
 	{
 		rc->ray.step_x = -1;
-		rc->ray.side_dist_x = (rc->player.pos.x - rc->ray.map_X)
+		rc->ray.side_dist_x = (rc->player.pos.x - rc->ray.map_x)
 			* rc->ray.delta_dist_x;
 	}
 	else
 	{
 		rc->ray.step_x = 1;
-		rc->ray.side_dist_x = (rc->ray.map_X + 1.0 - rc->player.pos.x)
+		rc->ray.side_dist_x = (rc->ray.map_x + 1.0 - rc->player.pos.x)
 			* rc->ray.delta_dist_x;
 	}
 	if (rc->ray.ray_dir.y < 0)
 	{
 		rc->ray.step_y = -1;
-		rc->ray.side_dist_y = (rc->player.pos.y - rc->ray.map_Y)
+		rc->ray.side_dist_y = (rc->player.pos.y - rc->ray.map_y)
 			* rc->ray.delta_dist_y;
 	}
 	else
 	{
 		rc->ray.step_y = 1;
-		rc->ray.side_dist_y = (rc->ray.map_Y + 1.0 - rc->player.pos.y)
+		rc->ray.side_dist_y = (rc->ray.map_y + 1.0 - rc->player.pos.y)
 			* rc->ray.delta_dist_y;
 	}
 }
@@ -49,23 +49,23 @@ void	dda(t_ctx *rc)
 		if (rc->ray.side_dist_x < rc->ray.side_dist_y)
 		{
 			rc->ray.side_dist_x += rc->ray.delta_dist_x;
-			rc->ray.map_X += rc->ray.step_x;
+			rc->ray.map_x += rc->ray.step_x;
 			rc->ray.side = 0;
 		}
 		else
 		{
 			rc->ray.side_dist_y += rc->ray.delta_dist_y;
-			rc->ray.map_Y += rc->ray.step_y;
+			rc->ray.map_y += rc->ray.step_y;
 			rc->ray.side = 1;
 		}
-		if (rc->map.grid[rc->ray.map_Y][rc->ray.map_X] == '1')
+		if (rc->map.grid[rc->ray.map_y][rc->ray.map_x] == '1')
 			rc->ray.hit = 1;
 	}
 	if (rc->ray.side == 0)
-		rc->ray.perp_dist = (rc->ray.map_X - rc->player.pos.x + (1
+		rc->ray.perp_dist = (rc->ray.map_x - rc->player.pos.x + (1
 					- rc->ray.step_x) / 2) / rc->ray.ray_dir.x;
 	else
-		rc->ray.perp_dist = (rc->ray.map_Y - rc->player.pos.y + (1
+		rc->ray.perp_dist = (rc->ray.map_y - rc->player.pos.y + (1
 					- rc->ray.step_y) / 2) / rc->ray.ray_dir.y;
 }
 
@@ -119,8 +119,8 @@ void	raycast(t_ctx *rc)
 			* rc->ray.camera_x;
 		rc->ray.ray_dir.y = rc->player.dir.y + rc->player.plane.y
 			* rc->ray.camera_x;
-		rc->ray.map_X = (int)rc->player.pos.x;
-		rc->ray.map_Y = (int)rc->player.pos.y;
+		rc->ray.map_x = (int)rc->player.pos.x;
+		rc->ray.map_y = (int)rc->player.pos.y;
 		rc->ray.delta_dist_x = fabs(1.0 / rc->ray.ray_dir.x);
 		rc->ray.delta_dist_y = fabs(1.0 / rc->ray.ray_dir.y);
 		rc->ray.hit = 0;
