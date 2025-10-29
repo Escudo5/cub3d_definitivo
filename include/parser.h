@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 19:34:35 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/28 18:53:12 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/29 18:36:08 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #define MAX_LINES 50
 
 // parser.c
-int	parser_extension(char *filename, int *mapfd);
-int parser(char *argv, t_ctx *cube);
+int		parser_extension(char *filename, int *mapfd);
+int		parser(char *argv, t_ctx *cube);
 
 // parser_utils.c
 void	gnl_cleanup(int fd);
@@ -36,7 +36,6 @@ int		get_we(t_ctx *cube, char *temp);
 int		get_ea(t_ctx *cube, char *temp);
 int		validate_textures(t_ctx *cube);
 
-
 //parser_cf.c
 int		get_f(t_ctx *cube, char *temp);
 int		get_c(t_ctx *cube, char *temp);
@@ -50,7 +49,5 @@ int		free_grid(char **grid, char *message, int flag);
 void	free_paths(t_ctx *cube);
 
 //parser_paths.c
-int	validate_textures(t_ctx *cube);
-int	parser_xpm_extension(char *filename);
-
-
+int		validate_textures(t_ctx *cube);
+int		parser_xpm_extension(char *filename);

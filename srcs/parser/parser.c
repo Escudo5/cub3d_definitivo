@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 19:48:01 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/29 18:34:18 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/29 18:46:26 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,10 @@
 
 int	parser_extension(char *filename, int *mapfd)
 {
-	char	*find;
+	size_t	len;
 
-	find = ft_strnstr(filename, ".cub", ft_strlen(filename) + 1);
-	if (!find)
-	{
-		ft_putstr_fd("Invalid '.cub' extension\n", STDERR_FILENO);
-		return (INPUT_ERROR);
-	}
-	if (find != ft_strrchr(filename, '.'))
+	len = ft_strlen(filename);
+	if (len < 4 || ft_strncmp(filename + len - 4, ".cub", 4) != 0)
 	{
 		ft_putstr_fd("Invalid '.cub' extension\n", STDERR_FILENO);
 		return (INPUT_ERROR);
