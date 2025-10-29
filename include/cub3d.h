@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alejandro <alejandro@student.42.fr>        +#+  +:+       +#+        */
+/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 16:50:25 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/24 19:15:12 by alejandro        ###   ########.fr       */
+/*   Updated: 2025/10/29 18:27:57 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,18 @@ typedef struct s_player_start
 	char	orientation;
 }t_player_start;
 
+typedef struct s_fck_pl_mv
+{
+	double	new_x;
+	double	new_y;
+	double	old_x;
+	double	old_y;
+	int		ix_newx;
+	int		iy_newy;
+	int		ix_oldx;
+	int		iy_oldy;
+}t_fck_pl_mv;
+
 /* Contexto global: pasarás un puntero a esto a todas las funciones */
 typedef struct s_ctx
 {
@@ -170,6 +182,7 @@ typedef struct s_ctx
 	t_slice			slice;
 	t_vec2			vec2;
 	t_path			path;
+	t_fck_pl_mv		movement;
 }				t_ctx;
 
 

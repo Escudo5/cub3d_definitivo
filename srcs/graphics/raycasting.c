@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 12:32:32 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/21 13:49:01 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/29 18:20:34 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	calc_ray(t_ctx *rc)
 	}
 }
 
-//calcular step y side_dist iniciales
+// calcular step y side_dist iniciales
 
 void	dda(t_ctx *rc)
 {
@@ -69,8 +69,7 @@ void	dda(t_ctx *rc)
 					- rc->ray.step_y) / 2) / rc->ray.ray_dir.y;
 }
 
-
-//parseo completo para veitar errores de mapa.
+// parseo completo para veitar errores de mapa.
 
 void	wall_dist(t_ctx *rc)
 {
@@ -83,18 +82,19 @@ void	wall_dist(t_ctx *rc)
 		rc->slice.draw_end = rc->cfg.h - 1;
 }
 
-//obtener line_height, draw start y end.
+// obtener line_height, draw start y end.
 
-
-void calc_tex_pos(t_ctx *rc)
+void	calc_tex_pos(t_ctx *rc)
 {
-	t_img *image;
+	t_img	*image;
 
 	image = get_wall_tex(rc);
 	if (rc->ray.side == 0)
-		rc->slice.wall_x = rc->player.pos.y + rc->ray.perp_dist * rc->ray.ray_dir.y;
+		rc->slice.wall_x = rc->player.pos.y + rc->ray.perp_dist
+			* rc->ray.ray_dir.y;
 	else
-		rc->slice.wall_x = rc->player.pos.x + rc->ray.perp_dist * rc->ray.ray_dir.x;
+		rc->slice.wall_x = rc->player.pos.x + rc->ray.perp_dist
+			* rc->ray.ray_dir.x;
 	rc->slice.wall_x -= floor(rc->slice.wall_x);
 	rc->slice.tex_x = (int)(rc->slice.wall_x * (double)image->w);
 	if (rc->ray.side == 0 && rc->ray.ray_dir.x > 0)
@@ -102,13 +102,9 @@ void calc_tex_pos(t_ctx *rc)
 	if (rc->ray.side == 1 && rc->ray.ray_dir.y < 0)
 		rc->slice.tex_x = (double)image->w - rc->slice.tex_x - 1;
 	rc->slice.tex_step = 1.0 * image->h / rc->slice.line_height;
-	rc->slice.tex_pos = (rc->slice.draw_start - rc->cfg.h / 2 + rc->slice.line_height / 2) * rc->slice.tex_step;
+	rc->slice.tex_pos = (rc->slice.draw_start - rc->cfg.h / 2
+			+ rc->slice.line_height / 2) * rc->slice.tex_step;
 }
-
-
-
-////////Falta funcion que calcule la posicion de la textura
-
 
 void	raycast(t_ctx *rc)
 {

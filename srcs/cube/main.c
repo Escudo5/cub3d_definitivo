@@ -6,12 +6,12 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 16:18:43 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/29 17:20:28 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/29 18:33:28 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../include/cub3d.h"
-# include "../../include/parser.h"
+#include "../../include/cub3d.h"
+#include "../../include/parser.h"
 
 int	app_loop(t_ctx *c)
 {
@@ -19,7 +19,6 @@ int	app_loop(t_ctx *c)
 	raycast(c);
 	return (0);
 }
-
 
 void	game_destroy(t_ctx *c, int code)
 {
@@ -48,7 +47,7 @@ void	game_destroy(t_ctx *c, int code)
 
 int	main(int argc, char **argv)
 {
-	t_ctx *ctx;
+	t_ctx	*ctx;
 
 	if (argc != 2)
 	{
