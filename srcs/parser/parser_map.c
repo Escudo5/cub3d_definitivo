@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 19:58:35 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/28 19:12:44 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/29 13:19:05 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	store_grid(t_ctx *cube, int	*mapfd, char *temp, char ***map)
 	int	map_height;
 
 	*map = ft_calloc(MAX_LINES, sizeof(char *));
-	if (!map)
+	if (!*map)
 		return (MALLOC_ERROR);
 	map_height = 0;
 	while (temp)

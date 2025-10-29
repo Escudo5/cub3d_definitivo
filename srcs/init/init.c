@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:42:16 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/23 18:03:50 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/29 13:38:28 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int game_init(t_ctx *ctx)
 	return(0);
 	
 	init_player(ctx);
-	printf("he entrado en init_player\n");
 	mlx_hook(ctx->mlx.win, 2, 1L << 0, hook_key_press, ctx);
 	mlx_hook(ctx->mlx.win, 3, 1L << 1, hook_key_release, ctx);
 	mlx_hook(ctx->mlx.win, 17, 0, hook_close, ctx);
@@ -78,31 +77,30 @@ int	load_texture(t_ctx *c, t_img *texture, char *path)
 			
 int	load_textures(t_ctx *c)
 {
-	if (!load_texture(c, &c->tex_north, "./textures/Minecraft_diamond.xpm"))
+	if (!c->path.n || !load_texture(c, &c->tex_north, c->path.n))
 	    return (0);
-	if (!load_texture(c, &c->tex_south, "./textures/Minecraft_esmerald.xpm"))
+	if (!c->path.s || !load_texture(c, &c->tex_south, c->path.s))
 		return (0);
-	if (!load_texture(c, &c->tex_east, "./textures/Minecraft_gold.xpm"))
+	if (!c->path.e || !load_texture(c, &c->tex_east, c->path.e))
 		return (0);
-	if (!load_texture(c, &c->tex_west, "./textures/Minecraft_lapis.xpm"))
-		return (0);
-				
+	if (!c->path.w || !load_texture(c, &c->tex_west, c->path.w))
+		return (0);			
 	return (1);
 }
-int map_test(t_ctx *ctx)
-{
-    static char *map[] = {
-        "111111111111111111111111111111111111111111111111111",
-        "100000000000000000000000000000000000000000000000001",
-        "10N000000000000000000000000000000000000000000000001",
-        "100000000000000000000000000000000000000000000000001",
-        "111111111111111111111111111111111111111111111111111",
-        NULL
-    };
-    ctx->map.grid = map;
-    ctx->map.h = 5;
-    ctx->map.w = 52;
-    for (int y = 0; y < ctx->map.h; y++)
-        printf("%s\n", ctx->map.grid[y]);
-    return (0);
-}
+// int map_test(t_ctx *ctx)
+// {
+//     static char *map[] = {
+//         "111111111111111111111111111111111111111111111111111",
+//         "100000000000000000000000000000000000000000000000001",
+//         "10N000000000000000000000000000000000000000000000001",
+//         "100000000000000000000000000000000000000000000000001",
+//         "111111111111111111111111111111111111111111111111111",
+//         NULL
+//     };
+//     ctx->map.grid = map;
+//     ctx->map.h = 5;
+//     ctx->map.w = 52;
+//     for (int y = 0; y < ctx->map.h; y++)
+//         printf("%s\n", ctx->map.grid[y]);
+//     return (0);
+// }

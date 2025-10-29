@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:34:32 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/23 17:39:08 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/29 13:20:05 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void move_right(t_ctx *ctx, double mov_speed)
 {
     double new_x;
     double new_y;
-    printf("dir=(%.3f, %.3f) right=(%.3f, %.3f) pos=(%.3f,%.3f)\n", ctx->player.dir.x, ctx->player.dir.y, ctx->player.dir.y, -ctx->player.dir.x, ctx->player.pos.x, ctx->player.pos.y);
     new_x = ctx->player.pos.x + (-ctx->player.dir.y * mov_speed);
     new_y = ctx->player.pos.y + (ctx->player.dir.x * mov_speed);
     if (ctx->map.grid[(int)new_y][(int)new_x] != '1')

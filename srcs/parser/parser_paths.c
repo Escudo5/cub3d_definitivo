@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_paths.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 17:54:00 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/28 18:17:58 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/10/29 13:18:58 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ int	parser_xpm_extension(char *filename)
 	if (fd < 0)
 	{
 		perror("Can't open texture");
-		close (fd);
 		return (INPUT_ERROR);
 	}
-	close (fd);
+	close(fd);
 	return (SUCCESS);
 }
 
