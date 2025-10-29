@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 18:26:54 by alejandro         #+#    #+#             */
-/*   Updated: 2025/10/28 18:56:43 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/29 18:16:10 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*pad_map(char *line, int width)
 {
 	size_t		len;
 	size_t		i;
-	char	*new_line;
+	char		*new_line;
 
 	len = ft_strlen(line);
 	new_line = malloc(width + 1);

@@ -3,19 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 19:09:40 by alejandro         #+#    #+#             */
-/*   Updated: 2025/10/28 18:50:51 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/29 18:35:11 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 #include "../../include/parser.h"
 
-int	parse_line(char *temp, int *colors, char *set)
+int	parse_color(char **temp, int *colors, int i)
 {
 	char	*start;
+
+	while (**temp && !ft_isdigit(**temp))
+		(*temp)++;
+	if (!**temp)
+		return (INPUT_ERROR);
+	start = *temp;
+	while (ft_isdigit(**temp))
+		(*temp)++;
+	colors[i] = ft_atoi(start);
+	if (colors[i] < 0 || colors[i] > 255)
+		return (INPUT_ERROR);
+	return (SUCCESS);
+}
+
+int	parse_line(char *temp, int *colors, char *set)
+{
 	int		i;
 
 	if (ft_strncmp(temp, set, 1) || !ft_strchr(temp, ','))
@@ -24,27 +40,23 @@ int	parse_line(char *temp, int *colors, char *set)
 	i = 0;
 	while (i < 3)
 	{
-		while (*temp && !ft_isdigit(*temp))
-			temp++;
-		start = temp;
-		while (ft_isdigit(*temp))
-			temp++;
-		colors[i] = ft_atoi(start);
-		if (colors[i] < 0 || colors[i] > 255)
+		if (parse_color(&temp, colors, i) != SUCCESS)
 			return (INPUT_ERROR);
-		if (i < 2)
-		{
-			if (*temp++ != ',')
-				return (INPUT_ERROR);
-		}
+		if (i < 2 && *temp++ != ',')
+			return (INPUT_ERROR);
 		i++;
+	}
+	while (*temp)
+	{
+		if (!ft_isspace(*temp))
+			return (INPUT_ERROR);
+		temp++;
 	}
 	return (SUCCESS);
 }
 
 int	get_f(t_ctx *cube, char *temp)
 {
-	// char	*temp_color;
 	int		colors[3];
 
 	if (*temp != 'F')
@@ -67,7 +79,6 @@ int	get_f(t_ctx *cube, char *temp)
 
 int	get_c(t_ctx *cube, char *temp)
 {
-	// char	*temp_color;
 	int		colors[3];
 
 	if (*temp != 'C')

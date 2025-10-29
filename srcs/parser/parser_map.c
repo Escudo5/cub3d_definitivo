@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 19:58:35 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/29 13:19:05 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/29 18:15:54 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,5 @@ int	store_map(t_ctx *cube, int *mapfd, char *temp)
 		return (free_grid(map, "Invalid player\n", INPUT_ERROR));
 	print_map(map, cube->map.h);
 	cube->map.grid = map;
-	return(SUCCESS);
-	// return (free_grid(map, "Success\n", SUCCESS));
+	return (SUCCESS);
 }

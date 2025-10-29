@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 19:48:01 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/29 13:45:17 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/10/29 18:15:13 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,10 @@
 
 int	parser_extension(char *filename, int *mapfd)
 {
-	char	*find;
+	size_t	len;
 
-	find = ft_strnstr(filename, ".cub", ft_strlen(filename));
-	if (!find)
-	{
-		ft_putstr_fd("Invalid '.cub' extension\n", STDERR_FILENO);
-		return (INPUT_ERROR);
-	}
-	if (find != ft_strrchr(filename, '.'))
+	len = ft_strlen(filename);
+	if (len < 4 || ft_strncmp(filename + len - 4, ".cub", 4) != 0)
 	{
 		ft_putstr_fd("Invalid '.cub' extension\n", STDERR_FILENO);
 		return (INPUT_ERROR);
@@ -72,7 +67,7 @@ int	parser(char *argv, t_ctx *cube)
 		return (INPUT_ERROR);
 	temp = get_next_line(mapfd);
 	if (!temp)
-		return (exit_parser( &mapfd, "Empty file\n", INPUT_ERROR));
+		return (exit_parser(&mapfd, "Empty file\n", INPUT_ERROR));
 	while (temp)
 	{
 		if (temp[0] == '\n')
