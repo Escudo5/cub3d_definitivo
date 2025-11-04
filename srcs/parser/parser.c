@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 19:48:01 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/29 18:46:26 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/11/04 16:11:35 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	parser(char *argv, t_ctx *cube)
 	}
 	if (store_map(cube, &mapfd, temp) != SUCCESS)
 		return (exit_parser(&mapfd, "Invalid map\n", INPUT_ERROR));
-	return (exit_parser(&mapfd, "All ok!\n", SUCCESS));
+	return (exit_parser(&mapfd, "", SUCCESS));
 }
 
 // int	main(int argc, char **argv)

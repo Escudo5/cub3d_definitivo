@@ -6,7 +6,7 @@
 /*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 19:09:40 by alejandro         #+#    #+#             */
-/*   Updated: 2025/10/29 18:35:11 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/11/04 16:10:56 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,6 @@ int	get_f(t_ctx *cube, char *temp)
 	cube->cfg.floor_color.r = colors[0];
 	cube->cfg.floor_color.g = colors[1];
 	cube->cfg.floor_color.b = colors[2];
-	ft_printf("F Red: %d\n", cube->cfg.floor_color.r);
-	ft_printf("F Green: %d\n", cube->cfg.floor_color.g);
-	ft_printf("F Blue: %d\n", cube->cfg.floor_color.b);
 	return (SUCCESS);
 }
 
@@ -93,8 +90,5 @@ int	get_c(t_ctx *cube, char *temp)
 	cube->cfg.ceil_color.r = colors[0];
 	cube->cfg.ceil_color.g = colors[1];
 	cube->cfg.ceil_color.b = colors[2];
-	ft_printf("C Red: %d\n", cube->cfg.ceil_color.r);
-	ft_printf("C Green: %d\n", cube->cfg.ceil_color.g);
-	ft_printf("C Blue: %d\n", cube->cfg.ceil_color.b);
 	return (SUCCESS);
 }
