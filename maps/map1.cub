@@ -1,13 +1,13 @@
 
-NO ./textures/wood.xpm
+F 48, 50,50
+C 48,50,50
+NO ./textures/wood.xmp
 SO ./textures/colorstone_1.xpm
 EA ./textures/eagle_1.xpm
 WE ./textures/wall_3.xpm
 
 
 
-F 48,50,50
-C 48,50,50
 
         1111111111111111111111111
         10000000001100000000000N1
