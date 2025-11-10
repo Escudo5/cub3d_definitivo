@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_imgs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 18:34:47 by alejandro         #+#    #+#             */
-/*   Updated: 2025/10/28 18:52:59 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/11/04 16:11:06 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	get_no(t_ctx *cube, char *temp)
 			ft_putstr_fd("Invalid texture\n", 2);
 			return (INPUT_ERROR);
 		}
-		ft_printf("%s\n", cube->path.n);
 		return (SUCCESS);
 	}
 	return (SUCCESS);
@@ -49,7 +48,6 @@ int	get_so(t_ctx *cube, char *temp)
 			ft_putstr_fd("Invalid texture\n", 2);
 			return (INPUT_ERROR);
 		}
-		ft_printf("%s\n", cube->path.s);
 		return (SUCCESS);
 	}
 	return (SUCCESS);
@@ -70,7 +68,6 @@ int	get_we(t_ctx *cube, char *temp)
 			ft_putstr_fd("Invalid texture\n", 2);
 			return (INPUT_ERROR);
 		}
-		ft_printf("%s\n", cube->path.w);
 		return (SUCCESS);
 	}
 	return (SUCCESS);
@@ -91,7 +88,6 @@ int	get_ea(t_ctx *cube, char *temp)
 			ft_putstr_fd("Invalid texture\n", 2);
 			return (INPUT_ERROR);
 		}
-		ft_printf("%s\n", cube->path.e);
 		return (SUCCESS);
 	}
 	return (SUCCESS);

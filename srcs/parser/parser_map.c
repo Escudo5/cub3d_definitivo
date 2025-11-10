@@ -6,7 +6,7 @@
 /*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 19:58:35 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/29 18:15:54 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/11/06 21:58:48 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,16 @@ int	store_map(t_ctx *cube, int *mapfd, char *temp)
 {
 	char	**map;
 
+	map = NULL;
+	if (validate_textures(cube) != SUCCESS)
+	{
+		free(temp);
+		temp = NULL;
+		gnl_cleanup(*mapfd);
+		return (free_grid(map, "Invalid textures\n", INPUT_ERROR));
+	}
 	if (store_grid(cube, mapfd, temp, &map) != SUCCESS)
 		return (free_grid(map, "Invalid symbol\n", INPUT_ERROR));
-	if (validate_textures(cube) != SUCCESS)
-		return (free_grid(map, "Invalid textures\n", INPUT_ERROR));
 	if (normalize_map(cube, &map) != SUCCESS)
 		return (free_grid(map, "Invalid map\n", INPUT_ERROR));
 	if (fill_gaps(cube, &map) != SUCCESS)
@@ -144,7 +150,6 @@ int	store_map(t_ctx *cube, int *mapfd, char *temp)
 		return (free_grid(map, "Not closed map\n", INPUT_ERROR));
 	if (get_player_position(cube, map) != SUCCESS)
 		return (free_grid(map, "Invalid player\n", INPUT_ERROR));
-	print_map(map, cube->map.h);
 	cube->map.grid = map;
 	return (SUCCESS);
 }

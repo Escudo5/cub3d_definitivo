@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 19:48:01 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/29 18:46:26 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/11/06 22:45:31 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,37 @@ int	store_cf(t_ctx *cube, char *temp)
 {
 	if (!ft_strchr("CF", *temp))
 		return (INPUT_ERROR);
-	if (get_f(cube, temp) != SUCCESS)
-		return (INPUT_ERROR);
-	if (get_c(cube, temp) != SUCCESS)
-		return (INPUT_ERROR);
+	if (temp[0] == 'C')
+		return (get_c(cube, temp));
+	else if (temp[0] == 'F')
+		return (get_f(cube, temp));
+	return (SUCCESS);
+}
+
+int	parser_loop(t_ctx *cube, char **temp, int *mapfd)
+{
+	while (*temp)
+	{
+		if ((*temp[0]) == '\n')
+			;
+		else if ((*temp[0]) == 'C' || (*temp[0] == 'F'))
+		{
+			if (store_cf(cube, *temp) != SUCCESS)
+				return (INPUT_ERROR);
+		}
+		else if (store_imgs(cube, *temp) == SUCCESS)
+			;
+		else if (ft_strcharset(*temp, " 01NSEW") == SUCCESS)
+			break ;
+		else
+		{
+			free(*temp);
+			gnl_cleanup(*mapfd);
+			return (INPUT_ERROR);
+		}
+		free(*temp);
+		*temp = get_next_line(*mapfd);
+	}
 	return (SUCCESS);
 }
 
@@ -68,23 +95,11 @@ int	parser(char *argv, t_ctx *cube)
 	temp = get_next_line(mapfd);
 	if (!temp)
 		return (exit_parser(&mapfd, "Empty file\n", INPUT_ERROR));
-	while (temp)
-	{
-		if (temp[0] == '\n')
-			;
-		else if (store_imgs(cube, temp) == SUCCESS || store_cf(cube,
-				temp) == SUCCESS)
-			;
-		else if (ft_strcharset(temp, " 01NSEW") == SUCCESS)
-			break ;
-		else
-			return (exit_parser(&mapfd, "Invalid file\n", INPUT_ERROR));
-		free(temp);
-		temp = get_next_line(mapfd);
-	}
+	if (parser_loop(cube, &temp, &mapfd) != SUCCESS)
+		return (exit_parser(&mapfd, "Invalid file\n", INPUT_ERROR));
 	if (store_map(cube, &mapfd, temp) != SUCCESS)
 		return (exit_parser(&mapfd, "Invalid map\n", INPUT_ERROR));
-	return (exit_parser(&mapfd, "All ok!\n", SUCCESS));
+	return (exit_parser(&mapfd, "", SUCCESS));
 }
 
 // int	main(int argc, char **argv)

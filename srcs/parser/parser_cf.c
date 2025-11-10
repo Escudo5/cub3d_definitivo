@@ -6,7 +6,7 @@
 /*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 19:09:40 by alejandro         #+#    #+#             */
-/*   Updated: 2025/10/29 18:35:11 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/11/06 22:36:40 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,32 @@ int	parse_color(char **temp, int *colors, int i)
 {
 	char	*start;
 
-	while (**temp && !ft_isdigit(**temp))
-		(*temp)++;
-	if (!**temp)
-		return (INPUT_ERROR);
 	start = *temp;
-	while (ft_isdigit(**temp))
+	while (**temp && ft_isspace(**temp))
 		(*temp)++;
-	colors[i] = ft_atoi(start);
-	if (colors[i] < 0 || colors[i] > 255)
+	if (!**temp || (!ft_strchr("-+", **temp) && !ft_isdigit(**temp)))
 		return (INPUT_ERROR);
+	if (ft_strchr("-+", **temp) && !ft_isdigit(*(*temp + 1)))
+	{
+		ft_printf("Two or more symbols\n");
+		return (INPUT_ERROR);
+	}
+	colors[i] = ft_atoi(start);
+	ft_printf("color is %d\n", colors[i]);
+	if (colors[i] < 0 || colors[i] > 255)
+	{
+		ft_putstr_fd("Invalid color value\n", 2);
+		return (INVALID_COLOR);
+	}
+	while (ft_isdigit(**temp) || ft_strchr("-+", **temp))
+		(*temp)++;
 	return (SUCCESS);
 }
 
 int	parse_line(char *temp, int *colors, char *set)
 {
 	int		i;
+	int		flag;
 
 	if (ft_strncmp(temp, set, 1) || !ft_strchr(temp, ','))
 		return (INPUT_ERROR);
@@ -40,7 +50,10 @@ int	parse_line(char *temp, int *colors, char *set)
 	i = 0;
 	while (i < 3)
 	{
-		if (parse_color(&temp, colors, i) != SUCCESS)
+		flag = parse_color(&temp, colors, i);
+		if (flag == INVALID_COLOR)
+			return (INVALID_COLOR);
+		else if (flag == INPUT_ERROR)
 			return (INPUT_ERROR);
 		if (i < 2 && *temp++ != ',')
 			return (INPUT_ERROR);
@@ -58,6 +71,7 @@ int	parse_line(char *temp, int *colors, char *set)
 int	get_f(t_ctx *cube, char *temp)
 {
 	int		colors[3];
+	int		flag;
 
 	if (*temp != 'F')
 		return (SUCCESS);
@@ -66,20 +80,20 @@ int	get_f(t_ctx *cube, char *temp)
 		ft_putstr_fd("More than one F color\n", 2);
 		return (INPUT_ERROR);
 	}
-	if (parse_line(temp, colors, "F") != SUCCESS)
-		return (INPUT_ERROR);
-	cube->cfg.floor_color.r = colors[0];
-	cube->cfg.floor_color.g = colors[1];
-	cube->cfg.floor_color.b = colors[2];
-	ft_printf("F Red: %d\n", cube->cfg.floor_color.r);
-	ft_printf("F Green: %d\n", cube->cfg.floor_color.g);
-	ft_printf("F Blue: %d\n", cube->cfg.floor_color.b);
-	return (SUCCESS);
+	flag = parse_line(temp, colors, "F");
+	if (flag == SUCCESS)
+		return (flag);
+	else
+	{
+		free (temp);
+		return (flag);
+	}
 }
 
 int	get_c(t_ctx *cube, char *temp)
 {
 	int		colors[3];
+	int		flag;
 
 	if (*temp != 'C')
 		return (SUCCESS);
@@ -88,13 +102,12 @@ int	get_c(t_ctx *cube, char *temp)
 		ft_putstr_fd("More than one C color\n", 2);
 		return (INPUT_ERROR);
 	}
-	if (parse_line(temp, colors, "C") != SUCCESS)
-		return (INPUT_ERROR);
-	cube->cfg.ceil_color.r = colors[0];
-	cube->cfg.ceil_color.g = colors[1];
-	cube->cfg.ceil_color.b = colors[2];
-	ft_printf("C Red: %d\n", cube->cfg.ceil_color.r);
-	ft_printf("C Green: %d\n", cube->cfg.ceil_color.g);
-	ft_printf("C Blue: %d\n", cube->cfg.ceil_color.b);
-	return (SUCCESS);
+	flag = parse_line(temp, colors, "C");
+	if (flag == SUCCESS)
+		return (flag);
+	else
+	{
+		free (temp);
+		return (flag);
+	}
 }

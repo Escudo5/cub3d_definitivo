@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 16:50:25 by smarquez          #+#    #+#             */
-/*   Updated: 2025/10/29 18:59:52 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/11/06 22:06:39 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ enum				e_macro_errors
 {
 	SUCCESS = 0,
 	MALLOC_ERROR = -1,
-	INPUT_ERROR = -2
+	INPUT_ERROR = -2,
+	INVALID_COLOR = -3
 };
 
 /* Imagen de frame: buffer donde pintas antes de mostrar en la ventana */

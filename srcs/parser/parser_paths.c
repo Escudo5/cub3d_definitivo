@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_paths.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 17:54:00 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/29 13:18:58 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/11/04 16:08:49 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	parser_xpm_extension(char *filename)
 	char	*find;
 	int		fd;
 
+	if (!filename)
+		return (INPUT_ERROR);
 	find = ft_strnstr(filename, ".xpm", ft_strlen(filename));
 	if (!find)
 	{

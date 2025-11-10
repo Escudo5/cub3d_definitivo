@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 17:18:28 by acastrov          #+#    #+#             */
-/*   Updated: 2025/10/28 18:51:31 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/11/04 16:22:13 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ int	free_grid(char **grid, char *message, int flag)
 	int	i;
 
 	i = 0;
+	if (!grid || !*grid)
+	{
+		ft_putstr_fd(message, STDERR_FILENO);
+		return (flag);
+	}
 	if (grid)
 	{
 		while (grid[i])
