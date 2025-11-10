@@ -6,7 +6,7 @@
 /*   By: smarquez <smarquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:34:32 by smarquez          #+#    #+#             */
-/*   Updated: 2025/11/04 15:01:43 by smarquez         ###   ########.fr       */
+/*   Updated: 2025/11/04 15:28:52 by smarquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ void	handle_movement(t_ctx *c)
 	double	move_speed;
 	double	rot_speed;
 
-	move_speed = 0.08;
-	rot_speed = 0.05;
+	move_speed = 0.05;
+	rot_speed = 0.02;
 	if (c->keys.w)
 		move_forward(c, move_speed);
 	if (c->keys.s)
