@@ -1,7 +1,7 @@
 
-F 48, 50,50
-C 48,50,50
-NO ./textures/wood.xmp
+F 0,0,255
+C 255,0,0
+NO ./textures/wood.xpm
 SO ./textures/colorstone_1.xpm
 EA ./textures/eagle_1.xpm
 WE ./textures/wall_3.xpm

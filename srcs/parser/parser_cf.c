@@ -6,7 +6,7 @@
 /*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 19:09:40 by alejandro         #+#    #+#             */
-/*   Updated: 2025/11/10 13:26:36 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/11/10 14:50:07 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ int	get_f(t_ctx *cube, char *temp)
 		return (INPUT_ERROR);
 	}
 	flag = parse_line(temp, colors, "F");
+	cube->cfg.floor_color.r = colors[0];
+	cube->cfg.floor_color.g = colors[1];
+	cube->cfg.floor_color.b = colors[2];
 	if (flag == SUCCESS)
 		return (flag);
 	else
@@ -98,6 +101,9 @@ int	get_c(t_ctx *cube, char *temp)
 		return (INPUT_ERROR);
 	}
 	flag = parse_line(temp, colors, "C");
+	cube->cfg.ceil_color.r = colors[0];
+	cube->cfg.ceil_color.g = colors[1];
+	cube->cfg.ceil_color.b = colors[2];
 	if (flag == SUCCESS)
 		return (flag);
 	else
