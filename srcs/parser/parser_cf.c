@@ -6,7 +6,7 @@
 /*   By: acastrov <acastrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 19:09:40 by alejandro         #+#    #+#             */
-/*   Updated: 2025/11/06 22:36:40 by acastrov         ###   ########.fr       */
+/*   Updated: 2025/11/10 13:26:36 by acastrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,17 @@ int	parse_color(char **temp, int *colors, int i)
 	start = *temp;
 	while (**temp && ft_isspace(**temp))
 		(*temp)++;
-	if (!**temp || (!ft_strchr("-+", **temp) && !ft_isdigit(**temp)))
-		return (INPUT_ERROR);
-	if (ft_strchr("-+", **temp) && !ft_isdigit(*(*temp + 1)))
-	{
-		ft_printf("Two or more symbols\n");
-		return (INPUT_ERROR);
-	}
-	colors[i] = ft_atoi(start);
-	ft_printf("color is %d\n", colors[i]);
-	if (colors[i] < 0 || colors[i] > 255)
-	{
-		ft_putstr_fd("Invalid color value\n", 2);
-		return (INVALID_COLOR);
-	}
-	while (ft_isdigit(**temp) || ft_strchr("-+", **temp))
+	if (**temp == '-' || **temp == '+')
 		(*temp)++;
+	if (!ft_isdigit(**temp))
+		return (INPUT_ERROR);
+	while (ft_isdigit(**temp))
+		(*temp)++;
+	if (**temp && **temp != ',' && !ft_isspace(**temp))
+		return (INPUT_ERROR);
+	colors[i] = ft_atoi(start);
+	if (colors[i] < 0 || colors[i] > 255)
+		return (INVALID_COLOR);
 	return (SUCCESS);
 }
 
